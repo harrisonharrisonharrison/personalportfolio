@@ -19,30 +19,21 @@ camera.position.setZ(30);
 renderer.render( scene, camera );
 
 const geometry = new THREE.SphereGeometry(10, 10, 10);
-const material = new THREE.MeshStandardMaterial( { color:0xFF6347 });
+const meTexture = new THREE.TextureLoader().load("pfp2.jpg")
+const material = new THREE.MeshBasicMaterial( { map: meTexture });
 const circle = new THREE.Mesh( geometry, material );
 scene.add(circle);
 
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set(5,5,5)
-const ambientLight = new THREE.AmbientLight(0xffffff);
-scene.add(pointLight, ambientLight)
-
-const lightHelper = new THREE.PointLightHelper(pointLight);
-scene.add(lightHelper);
-
-const controls = new OrbitControls(camera, renderer.domElement);
+const light = new THREE.PointLight( 0xff0000, 1, 100 );
+light.position.set( 50, 50, 50 );
+scene.add( light );
 
 const backgroundTexture = new THREE.TextureLoader().load('A$.png');
-backgroundTexture.anisotropy -= 1000
 scene.background = backgroundTexture;
 
 function animate(){
   requestAnimationFrame( animate );
-  circle.rotation.x += .01;
-  circle.rotation.y += .005;
-  circle.rotation.z += .01;
-  controls.update()
+  circle.rotation.y -= .01
   renderer.render(scene, camera);
 }
 
