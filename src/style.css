@@ -14,16 +14,16 @@ main {
   position: absolute;
 }
 
-/* Speech bubble styles */
+/* about me */
 .speech-bubble {
   position: fixed;
   left: 20%;
   top: 50vh;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.95);
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   max-width: 300px;
@@ -38,23 +38,120 @@ main {
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 15px solid rgba(255, 255, 255, 0.95);
+  border-left: 15px solid rgba(0, 0, 0, 0.95);
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }
 
 .speech-content h2 {
-  color: #333;
+  color: #ffffff;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 10px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .speech-content p {
-  color: #666;
+  color: #afafaf;
   font-size: 1rem;
+  font-weight: 400;
   line-height: 1.5;
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Page management */
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-arrow {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-arrow:disabled:hover {
+  background: none;
+  transform: none;
+}
+
+/* Page indicators */
+.page-indicators {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background: #ffffff;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.close-bubble {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 20;
+  padding: 2px 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.close-bubble:hover {
+  background: rgba(255,255,255,0.1);
 }

@@ -3,33 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/pfp2.jpg" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo+2&effect=fire" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>harrison t</title>
   </head>
   <body>
     <canvas id="bg"></canvas>
     <main class="">
-      <header class="col-start-5 col-end-6">
-        <h1 class=""></h1>
-      </header>
       
-      <!-- Speech bubble for about me section -->
+      <!-- luh calm about me -->
       <div class="speech-bubble">
+        <button class="close-bubble" aria-label="Close">×</button>
         <div class="speech-content">
-          <h2>Harrison Tran</h2>
-          <p>helloooo im harrison, a second year compsci major at uci, and this is my personal website/portfolio. here, i hope to add a project showcase and create a gallery for my photos, among other things.
-
-in my free time, i like to lift, play video games, loredrop, play guitar, and listen to music. i like all genres of music, but my favorites are rnb, prog rock, and rap. i've linked my favorite artist on each genre, but you can check out my spotify here.
-
-i've been lifting since september 2024, and you can usually spot me at the arc. i weigh 140, my bench pr is 205, and i skip
-legs.
-
-i really like meeting new people, so feel free to talk to me on any of the socials on the top right. i've also been getting more involved with clubs on campus, like FUSION, Design@UCI, and AI@UCI.</p>
+          <h2 class="font-effect-fire">Harrison Tran</h2>
+          
+          <div class="page active" data-page="1">
+            <p>
+              helloooo im harrison, a second 
+              year compsci major at uci, and 
+              this is my personal website/portfolio. 
+              here, i hope to add a project showcase 
+              and create a gallery for my photos, 
+              among other things.
+            </p>
+          </div>
+          
+          <div class="page" data-page="2">
+            <p>    
+              in my free time, i like to lift, play 
+              video games, loredrop, play guitar, and 
+              listen to music. i like all genres of music, 
+              but my favorites are rnb, prog rock, and rap. 
+              i've linked my favorite artist on each genre, 
+              but you can check out my spotify here.
+            </p>
+          </div> 
+          <div class="page" data-page="3">
+            <p>
+              i've been lifting since september 2024, 
+              and you can usually spot me at the arc. 
+              i weigh 140, my bench pr is 205, and i 
+              skip
+              legs.
+            </p>
+          </div>
+          
+          <div class="page" data-page="4">
+            <p>
+              i really like meeting new people, so feel 
+              free to talk to me on any of the socials. 
+              i've also been getting more involved with 
+              clubs on campus, like FUSION, Design@UCI, 
+              and AI@UCI.
+            </p>
+          </div>
+        <!-- lil nav barrington city -->
+          <div class="navigation">
+            <button class="nav-arrow prev">‹</button>
+            <div class="page-indicators">
+              <span class="indicator active" data-page="1"></span>
+              <span class="indicator" data-page="2"></span>
+              <span class="indicator" data-page="3"></span>
+              <span class="indicator" data-page="4"></span>
+            </div>
+            <button class="nav-arrow next">›</button>
+          </div>
         </div>
       </div>
     </main>
     <script type="module" src="/src/main.js"></script>
-    
+    <script type="module" src="/src/navigation.js"></script>
+
   </body>
   
 </html>
