@@ -86,3 +86,24 @@ function animate(){
 }
 
 animate();
+
+// Show speech bubble when sphere is clicked
+const canvas = renderer.domElement;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+canvas.addEventListener('click', (event) => {
+  // Calculate mouse position in normalized device coordinates (-1 to +1)
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(circle);
+  if (intersects.length > 0) {
+    const speechBubble = document.querySelector('.speech-bubble');
+    if (speechBubble) {
+      speechBubble.style.display = 'block';
+    }
+  }
+});
