@@ -66,13 +66,4 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.nav-arrow.prev').addEventListener('click', () => changePage(-1));
   document.querySelector('.nav-arrow.next').addEventListener('click', () => changePage(1));
-
-  // Close speech bubble logic
-  const closeBtn = document.querySelector('.close-bubble');
-  const speechBubble = document.querySelector('.speech-bubble');
-  if (closeBtn && speechBubble) {
-    closeBtn.addEventListener('click', () => {
-      speechBubble.style.display = 'none';
-    });
-  }
 });
