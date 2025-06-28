@@ -74,11 +74,34 @@ scene.background = backgroundTexture;
 
 //const controls = new OrbitControls(camera, renderer.domElement);
 
+const geometryB =  new THREE.SphereGeometry( 1, 12, 8 );
+const ghTexture = new THREE.TextureLoader().load("gh.png")
+const ghMaterial = new THREE.MeshBasicMaterial( { map: ghTexture });
+const meshB = new THREE.Mesh ( geometryB,ghMaterial );
+meshB.rotation.y = -1.2;
+meshB.position.set(0,0,10)
+scene.add( meshB );
+
+const orbitRadius = 10;
+const steps = 275;
+const mpi = Math.PI/180;
+const startAngle = 0;
+const startRadians = startAngle + mpi;
+let calcRadians = startRadians;
+const incrementRadians =  360/steps * mpi;
+
 function animate(){
   requestAnimationFrame( animate );
   circle.rotation.y -= .01
   mark.rotation.y += .01
   mark.rotation.z -= .01
+
+  meshB.position.set(
+    Math.cos(calcRadians) * orbitRadius,
+    Math.cos(calcRadians) * orbitRadius,
+    Math.sin(calcRadians) * orbitRadius
+  );
+  calcRadians += incrementRadians;
 
   exclamation.update();
 
@@ -87,13 +110,11 @@ function animate(){
 
 animate();
 
-// Show speech bubble when sphere is clicked
 const canvas = renderer.domElement;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 canvas.addEventListener('click', (event) => {
-  // Calculate mouse position in normalized device coordinates (-1 to +1)
   const rect = canvas.getBoundingClientRect();
   mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -105,5 +126,23 @@ canvas.addEventListener('click', (event) => {
     if (speechBubble) {
       speechBubble.style.display = 'block';
     }
+  } else {
+    const speechBubble = document.querySelector('.speech-bubble');
+    if (speechBubble) {
+      speechBubble.style.display = 'none';
+    }
   }
 });
+
+canvas.addEventListener('click', (event) => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(meshB);
+  if (intersects.length > 0) {
+    window.open('https://github.com/harrisonharrisonharrison', '_blank');
+  }
+});
+
