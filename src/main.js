@@ -82,7 +82,34 @@ meshB.rotation.y = -1.2;
 meshB.position.set(0,0,10)
 scene.add( meshB );
 
-const orbitRadius = 10;
+const geometryC =  new THREE.SphereGeometry( 1, 12, 8 );
+const sTexture = new THREE.TextureLoader().load("steam.png")
+const sMaterial = new THREE.MeshBasicMaterial( { map: sTexture });
+const meshC = new THREE.Mesh ( geometryC,sMaterial );
+meshC.rotation.y = -1.6;
+meshC.position.set(0,0,10)
+scene.add( meshC );
+
+const geometryD =  new THREE.SphereGeometry( 1, 12, 8 );
+const lTexture = new THREE.TextureLoader().load("in.png")
+const lMaterial = new THREE.MeshBasicMaterial( { map: lTexture });
+const meshD = new THREE.Mesh ( geometryD,lMaterial );
+meshD.rotation.y = -1.2;
+meshD.position.set(0,0,10)
+scene.add( meshD );
+
+const geometryE =  new THREE.SphereGeometry( 1, 12, 8 );
+const iTexture = new THREE.TextureLoader().load("ig.png")
+const iMaterial = new THREE.MeshBasicMaterial( { map: iTexture });
+const meshE = new THREE.Mesh ( geometryE,iMaterial );
+meshE.rotation.y = -.6;
+meshE.position.set(0,0,10)
+scene.add( meshE );
+
+const orbitRadius = 11;
+const orbitRadius2 = 9;
+const orbitRadius3 = 13;
+const orbitRadius4 = 15;
 const steps = 275;
 const mpi = Math.PI/180;
 const startAngle = 0;
@@ -101,7 +128,26 @@ function animate(){
     Math.cos(calcRadians) * orbitRadius,
     Math.sin(calcRadians) * orbitRadius
   );
+
+  meshC.position.set(
+    Math.sin(calcRadians) * orbitRadius2,
+    Math.sin(calcRadians) * orbitRadius2,
+    Math.cos(calcRadians) * orbitRadius2
+  );
+
+  meshD.position.set(
+    Math.sin(calcRadians) * orbitRadius3,
+    0,
+    Math.cos(calcRadians) * orbitRadius3
+  );
+
+  meshE.position.set(
+    -Math.sin(calcRadians) * orbitRadius4,
+    Math.sin(calcRadians) * orbitRadius4,
+    Math.cos(calcRadians) * orbitRadius4
+  );
   calcRadians += incrementRadians;
+
 
   exclamation.update();
 
@@ -132,17 +178,26 @@ canvas.addEventListener('click', (event) => {
       speechBubble.style.display = 'none';
     }
   }
-});
 
-canvas.addEventListener('click', (event) => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObject(meshB);
-  if (intersects.length > 0) {
+  const intersectsGH = raycaster.intersectObject(meshB);
+  if (intersectsGH.length > 0) {
     window.open('https://github.com/harrisonharrisonharrison', '_blank');
   }
+
+  const intersectsSteam = raycaster.intersectObject(meshC);
+  if (intersectsSteam.length > 0) {
+    window.open('https://steamcommunity.com/id/carrotoes/', '_blank');
+  }
+
+  const intersectsLI = raycaster.intersectObject(meshD);
+  if (intersectsLI.length > 0) {
+    window.open('https://www.linkedin.com/in/harrison-tran-547213294/', '_blank');
+  }
+
+  const intersectsIG = raycaster.intersectObject(meshE);
+  if (intersectsIG.length > 0) {
+    window.open('https://www.instagram.com/lasnganga/', '_blank');
+  }
 });
+
 
