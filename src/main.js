@@ -117,7 +117,41 @@ const startRadians = startAngle + mpi;
 let calcRadians = startRadians;
 const incrementRadians =  360/steps * mpi;
 
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}
+window.addEventListener( 'resize', onWindowResize );
+
+function updateSpeechBubblePosition() {
+  const canvas = document.querySelector('canvas');
+  const anchorPoint = new THREE.Vector3();
+
+  let anchorPointOffset = new THREE.Vector3();
+  const Y_AXIS = new THREE.Vector3(1, 1, 0);
+  anchorPointOffset.copy(circle.position);
+  anchorPointOffset.sub(camera.position);
+  anchorPointOffset.normalize();
+  anchorPointOffset.applyAxisAngle(Y_AXIS, - Math.PI / 2);
+  anchorPointOffset.multiplyScalar(0.5);
+  anchorPointOffset.y = 6;
+  anchorPointOffset.x = -25;
+
+  anchorPoint.setFromMatrixPosition(circle.matrixWorld);
+  anchorPoint.add(anchorPointOffset);
+  anchorPoint.project(camera);
+  var widthHalf = canvas.width / 2;
+  var heightHalf = canvas.height / 2;
+  anchorPoint.x = (anchorPoint.x * widthHalf) + widthHalf;
+  anchorPoint.y = -(anchorPoint.y * heightHalf) + heightHalf;
+  const speechBubbleDiv = document.querySelector('.speech-bubble');
+  speechBubbleDiv.style.left = `${anchorPoint.x}px`;
+  speechBubbleDiv.style.top = `${anchorPoint.y}px`;
+}
+
 function animate(){
+  updateSpeechBubblePosition();
   requestAnimationFrame( animate );
   circle.rotation.y -= .01
   mark.rotation.y += .01
@@ -154,6 +188,8 @@ function animate(){
   renderer.render(scene, camera);
 }
 
+
+
 animate();
 
 const canvas = renderer.domElement;
@@ -167,6 +203,7 @@ canvas.addEventListener('click', (event) => {
 
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObject(circle);
+  console.log(intersects.length, 'hello')
   if (intersects.length > 0) {
     const speechBubble = document.querySelector('.speech-bubble');
     if (speechBubble) {
