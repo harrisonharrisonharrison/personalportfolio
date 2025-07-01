@@ -19,10 +19,10 @@ main {
   position: absolute;
   background: rgba(0, 0, 0, 0.65);
   border-radius: 20px;
-  padding: 25px;
+  padding: 2vh;
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  max-width: 260px;
+  max-width: 20vw;
   z-index: 10;
 }
 
@@ -41,7 +41,7 @@ main {
 
 .speech-content h2 {
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 3vh;
   font-weight: normal;
   margin-bottom: 10px;
   font-family: 'Exo 2', sans-serif;
@@ -49,7 +49,7 @@ main {
 
 .speech-content p {
   color: #afafaf;
-  font-size: .8rem;
+  font-size: 2vh;
   font-weight: 400;
   line-height: 1.5;
   margin: 0;
@@ -71,8 +71,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 15px;
+  margin-top: 2vh;
+  height: 5vh;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -114,8 +114,8 @@ main {
 }
 
 .indicator {
-  width: 8px;
-  height: 8px;
+  width: .6vh;
+  height: .6vh;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
