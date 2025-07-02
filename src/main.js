@@ -4,6 +4,7 @@ import "./style.css"
 import * as THREE from 'three';
 import { PointLight } from "three";
 
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const scene = new THREE.Scene();
@@ -24,6 +25,16 @@ const meTexture = new THREE.TextureLoader().load("pfp2.jpg")
 const material = new THREE.MeshBasicMaterial( { map: meTexture });
 const circle = new THREE.Mesh( geometry, material );
 scene.add(circle);
+
+let projects;
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('../assets/projects.glb', (gltf) => {
+  projects = gltf.scene;
+  gltf.scene.position.set(-20, 10, 0);
+  gltf.scene.scale.set(4, 4, 4);
+  gltf.scene.rotation.x = .4;
+  scene.add(gltf.scene);
+});
 
 const cylinderGeometry = new THREE.CylinderGeometry(1,.7,4.2);
 const cylinderMaterial = new THREE.MeshPhysicalMaterial( { 
@@ -63,10 +74,13 @@ scene.add(mark);
 const light = new THREE.PointLight( 0xffffff, 3, 0 );
 light.position.set( 1, 16, 2);
 
-const ambience = new THREE.AmbientLight(0xffffff, 2)
-scene.add(light, ambience)
+const light1 = new THREE.PointLight( 0xffffff, 15, 0 );
+light1.position.set(-15, 8, 7);
 
-//const lightHelper = new THREE.PointLightHelper(light)
+const ambience = new THREE.AmbientLight(0xffffff, 2)
+scene.add(light, light1, ambience)
+
+//const lightHelper = new THREE.PointLightHelper(light1)
 //scene.add(lightHelper);
 
 const backgroundTexture = new THREE.TextureLoader().load('A$.png');
@@ -138,6 +152,9 @@ function animate(){
   mark.rotation.y += .01
   mark.rotation.z -= .01
 
+  if (projects) {
+    projects.rotation.y -= .005;
+  }
   meshB.position.set(
     Math.cos(calcRadians) * orbitRadius,
     Math.cos(calcRadians) * orbitRadius,
@@ -169,13 +186,18 @@ function animate(){
   renderer.render(scene, camera);
 }
 
-
-
 animate();
 
 const canvas = renderer.domElement;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
+
+canvas.addEventListener('wheel', (event) => {
+    circle.rotation.y -= .1;
+    if (projects) {
+      projects.rotation.y -= .05;
+    }
+});
 
 canvas.addEventListener('click', (event) => {
   const rect = canvas.getBoundingClientRect();
