@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 canvas {
   position: fixed;
   top: 0;
@@ -132,4 +143,14 @@ main {
   background: rgba(255, 255, 255, 0.7);
 }
 
-
+#preload{
+  background: #000 url(/hyperspace.gif) no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  animation: fadeOut 2s;
+}
