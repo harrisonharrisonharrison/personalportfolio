@@ -188,6 +188,8 @@ canvas.addEventListener('click', (event) => {
     const speechBubble = document.querySelector('.speech-bubble');
     if (speechBubble) {
       speechBubble.style.display = 'block';
+      scene.remove(mark);
+      scene.remove(cylinder);
     }
   } else {
     const speechBubble = document.querySelector('.speech-bubble');

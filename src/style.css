@@ -24,6 +24,7 @@ main {
   backdrop-filter: blur(10px);
   max-width: 20vw;
   z-index: 10;
+  display:none;
 }
 
 .speech-bubble::after {
