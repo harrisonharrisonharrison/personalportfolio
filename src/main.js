@@ -30,8 +30,8 @@ let projects;
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('../assets/projects.glb', (gltf) => {
   projects = gltf.scene;
-  gltf.scene.position.set(-20, 10, 0);
-  gltf.scene.scale.set(4, 4, 4);
+  gltf.scene.position.set(-20, 7, 0);
+  gltf.scene.scale.set(3, 3, 3);
   gltf.scene.rotation.x = .4;
   scene.add(gltf.scene);
 });
@@ -48,14 +48,15 @@ const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
 cylinder.position.set( 0, 15, 0)
 scene.add(cylinder);
 
-const tween = new TWEEN.Tween({ y: 15 })
-  .to({y:17},750)
+let exclamationY = cylinder.position.y;
+const tween = new TWEEN.Tween({ y: exclamationY })
+  .to({y:exclamationY+2},750)
   .onUpdate((coords) => {
     cylinder.position.y = coords.y;
     mark.position.y = coords.y - 4;
   })
-const tween2 = new TWEEN.Tween({ y: 17 })
-  .to({y:15},750)
+const tween2 = new TWEEN.Tween({ y: exclamationY+2 })
+  .to({y:exclamationY},750)
   .onUpdate((coords) => {
     cylinder.position.y = coords.y;
     mark.position.y = coords.y - 4;
@@ -210,8 +211,8 @@ canvas.addEventListener('click', (event) => {
     const speechBubble = document.querySelector('.speech-bubble');
     if (speechBubble) {
       speechBubble.style.display = 'block';
-      scene.remove(mark);
-      scene.remove(cylinder);
+      mark.position.set(-20,10,0)
+      cylinder.position.set(-20,0,0);
     }
   } else {
     const speechBubble = document.querySelector('.speech-bubble');
@@ -238,6 +239,11 @@ canvas.addEventListener('click', (event) => {
   const intersectsIG = raycaster.intersectObject(meshE);
   if (intersectsIG.length > 0) {
     window.open('https://www.instagram.com/lasnganga/', '_blank');
+  }
+
+  const intersectsProj = raycaster.intersectObject(projects);
+  if (intersectsProj.length > 0) {
+    window.open('projects', '_self');
   }
 });
 
