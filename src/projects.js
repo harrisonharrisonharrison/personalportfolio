@@ -42,6 +42,17 @@ gltfLoader2.load('../assets/starD.glb', (gltf1) => {
   gltf1.scene.rotation.x = .52;
   scene.add(gltf1.scene);
 });
+
+let starD2;
+const gltfLoader3 = new GLTFLoader();
+gltfLoader3.load('../assets/starD.glb', (gltf2) => {
+  starD2 = gltf2.scene;
+  gltf2.scene.position.set(-20, 32, -1000);
+  gltf2.scene.scale.set(.1, .1, .1);
+  gltf2.scene.rotation.y = -Math.PI/2;
+  gltf2.scene.rotation.x = .52;
+  scene.add(gltf2.scene);
+});
 const tween = new TWEEN.Tween({y:1000, z: -1000 })
   .to({z:-42, y:32},1500)
   .onUpdate((coords) => {
@@ -51,8 +62,19 @@ const tween = new TWEEN.Tween({y:1000, z: -1000 })
   .delay(1000)
   .easing(TWEEN.Easing.Bounce.In
 );
+const tween2 = new TWEEN.Tween({y:1000, z: -1000 })
+  .to({z:-42, y:20},1500)
+  .onUpdate((coords) => {
+    starD2.position.z = coords.z;
+    starD2.position.y = coords.y;
+  })
+  .delay(1300)
+  .easing(TWEEN.Easing.Bounce.In
+);
 tween.start()
+tween2.start()
 const starTween = new TWEEN.Group(tween);
+const starTween2 = new TWEEN.Group(tween2);
 
 //const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -73,6 +95,7 @@ function animate(){
 
     requestAnimationFrame( animate );
     starTween.update();
+    starTween2.update();
     renderer.render(scene, camera);
 }
 
