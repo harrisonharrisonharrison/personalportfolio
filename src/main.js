@@ -243,7 +243,7 @@ canvas.addEventListener('click', (event) => {
 
   const intersectsProj = raycaster.intersectObject(projects);
   if (intersectsProj.length > 0) {
-    window.open('projects', '_self');
+    window.open('projects.html', '_self');
   }
 });
 
