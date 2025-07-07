@@ -89,7 +89,7 @@ const tween3 = new TWEEN.Tween({y:1000, z: -1000 })
     arc.position.z = coords.z;
     arc.position.y = coords.y;
   })
-  .delay(1300)
+  .delay(200)
   .easing(TWEEN.Easing.Bounce.In
 );
 tween.start()
@@ -97,7 +97,7 @@ tween2.start()
 tween3.start()
 const starTween = new TWEEN.Group(tween,tween2,tween3);
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -106,10 +106,18 @@ function onWindowResize() {
 }
 window.addEventListener( 'resize', onWindowResize );
 
+function updateSpeechBubblePosition() {
+
+  const speechBubbleDiv = document.querySelector('.speech-bubble-projects');
+  speechBubbleDiv.style.left = `${window.innerWidth/6}px`;
+  speechBubbleDiv.style.top = `${window.innerHeight/3}px`;
+}
+
 const ambience = new THREE.AmbientLight(0xffffff, 2)
 scene.add(ambience)
 
-function animate(){      
+function animate(){    
+    updateSpeechBubblePosition()  
     if (projects) {
         projects.rotation.y -= .01;
     }
@@ -120,3 +128,29 @@ function animate(){
 }
 
 animate();
+
+const canvas = renderer.domElement;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+canvas.addEventListener('click', (event) => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObject(projects);
+  if (intersects.length > 0) {
+    const speechBubble = document.querySelector('.speech-bubble-projects');
+    if (speechBubble) {
+      speechBubble.style.display = 'block';
+      mark.position.set(-20,10,0)
+      cylinder.position.set(-20,0,0);
+    }
+  } else {
+    const speechBubble = document.querySelector('.speech-bubble-projects');
+    if (speechBubble) {
+      speechBubble.style.display = 'none';
+    }
+  }
+});
