@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@page {
+  page-orientation: rotate-left;
+}
+
 @keyframes fadeOut {
   0% {
     opacity: .5;

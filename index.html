@@ -10,8 +10,25 @@
   <div id="preload"></div>
   <body>
     <canvas id="bg"></canvas>
-    <main class="">
-      
+    <style type="text/css">
+        #warning-message { display: none; }
+        @media only screen and (orientation:portrait){
+            #main { display:none; }
+            #warning-message { display:block; width: 100%; height: 100%; 
+                            position: fixed; top: 0; left: 0; 
+                            background-color: rgba(0, 0, 0, 0.8); 
+                            color: white; font-size: 2em; 
+                            display: flex; align-items: center; 
+                            justify-content: center; z-index: 1000; }
+        }
+        @media only screen and (orientation:landscape){
+            #warning-message { display:none; }
+        }
+    </style>
+    <div id="warning-message">
+        this website is only viewable in landscape mode
+    </div>
+    <main class="">  
       <!-- luh calm about me -->
       <div class="speech-bubble">
         <div class="speech-content">
