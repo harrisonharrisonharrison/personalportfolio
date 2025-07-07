@@ -28,7 +28,7 @@ scene.add(circle);
 
 let projects;
 const gltfLoader = new GLTFLoader();
-gltfLoader.load('../assets/projects.glb', (gltf) => {
+gltfLoader.load('projects.glb', (gltf) => {
   projects = gltf.scene;
   gltf.scene.position.set(-20, 7, 0);
   gltf.scene.scale.set(3, 3, 3);

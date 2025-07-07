@@ -25,7 +25,7 @@ scene.background = backgroundTexture;
 
 let projects;
 const gltfLoader = new GLTFLoader();
-gltfLoader.load('../assets/projectsmain.glb', (gltf) => {
+gltfLoader.load('projectsmain.glb', (gltf) => {
   projects = gltf.scene;
   gltf.scene.position.set(0, 0, 0);
   gltf.scene.scale.set(10, 10, 10);
@@ -34,7 +34,7 @@ gltfLoader.load('../assets/projectsmain.glb', (gltf) => {
 
 let starD;
 const gltfLoader2 = new GLTFLoader();
-gltfLoader2.load('../assets/starD.glb', (gltf1) => {
+gltfLoader2.load('starD.glb', (gltf1) => {
   starD = gltf1.scene;
   gltf1.scene.position.set(10, 32, -1000);
   gltf1.scene.scale.set(.1, .1, .1);
@@ -45,7 +45,7 @@ gltfLoader2.load('../assets/starD.glb', (gltf1) => {
 
 let starD2;
 const gltfLoader3 = new GLTFLoader();
-gltfLoader3.load('../assets/starD.glb', (gltf2) => {
+gltfLoader3.load('starD.glb', (gltf2) => {
   starD2 = gltf2.scene;
   gltf2.scene.position.set(-20, 32, -1000);
   gltf2.scene.scale.set(.1, .1, .1);
@@ -56,7 +56,7 @@ gltfLoader3.load('../assets/starD.glb', (gltf2) => {
 
 let arc;
 const gltfLoader4 = new GLTFLoader();
-gltfLoader4.load('../assets/arc.glb', (gltf3) => {
+gltfLoader4.load('arc.glb', (gltf3) => {
   arc = gltf3.scene;
   gltf3.scene.position.set(-50, 17, -1000);
   gltf3.scene.scale.set(10, 10, 10  );
@@ -67,7 +67,7 @@ gltfLoader4.load('../assets/arc.glb', (gltf3) => {
 
 let laat;
 const gltfLoader5 = new GLTFLoader();
-gltfLoader5.load('../assets/laat.glb', (gltf4) => {
+gltfLoader5.load('laat.glb', (gltf4) => {
   laat = gltf4.scene;
   gltf4.scene.position.set(20, 0, -1000);
   gltf4.scene.scale.set(.01, .01, .01  );
@@ -184,8 +184,6 @@ canvas.addEventListener('click', (event) => {
     const speechBubble = document.querySelector('.speech-bubble-projects');
     if (speechBubble) {
       speechBubble.style.display = 'block';
-      mark.position.set(-20,10,0)
-      cylinder.position.set(-20,0,0);
     }
   } else {
     const speechBubble = document.querySelector('.speech-bubble-projects');
