@@ -184,8 +184,6 @@ canvas.addEventListener('click', (event) => {
     const speechBubble = document.querySelector('.speech-bubble-projects');
     if (speechBubble) {
       speechBubble.style.display = 'block';
-      mark.position.set(-20,10,0)
-      cylinder.position.set(-20,0,0);
     }
   } else {
     const speechBubble = document.querySelector('.speech-bubble-projects');
