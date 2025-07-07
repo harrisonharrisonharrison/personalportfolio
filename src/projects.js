@@ -65,6 +65,16 @@ gltfLoader4.load('../assets/arc.glb', (gltf3) => {
   scene.add(gltf3.scene);
 });
 
+let laat;
+const gltfLoader5 = new GLTFLoader();
+gltfLoader5.load('../assets/laat.glb', (gltf4) => {
+  laat = gltf4.scene;
+  gltf4.scene.position.set(20, 0, -1000);
+  gltf4.scene.scale.set(.01, .01, .01  );
+  gltf4.scene.rotation.y = Math.PI/1.1;
+  scene.add(gltf4.scene);
+});
+
 const tween = new TWEEN.Tween({y:1000, z: -1000 })
   .to({z:-42, y:32},1500)
   .onUpdate((coords) => {
@@ -92,12 +102,22 @@ const tween3 = new TWEEN.Tween({y:1000, z: -1000 })
   .delay(200)
   .easing(TWEEN.Easing.Bounce.In
 );
+const tween4 = new TWEEN.Tween({y:1000, z: -1000 })
+  .to({z:0, y:0},3500)
+  .onUpdate((coords) => {
+    laat.position.z = coords.z;
+    laat.position.y = coords.y;
+  })
+  .delay(500)
+  .easing(TWEEN.Easing.Bounce.In
+);
 tween.start()
 tween2.start()
 tween3.start()
-const starTween = new TWEEN.Group(tween,tween2,tween3);
+tween4.start()
+const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
 
-//const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
