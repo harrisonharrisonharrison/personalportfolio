@@ -80,6 +80,27 @@ main {
   border-bottom: 15px solid transparent;
 }
 
+#crosswalk.speech-bubble::after {
+  top: 5vh;
+  transform: none;
+}
+#cinemaker.speech-bubble::after {
+  left: -30px;
+  border-right: 15px solid rgba(0, 0, 0, 0.65);
+  border-left: 15px solid transparent;
+
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+#website.speech-bubble::after {
+  left: -30px;
+  border-right: 15px solid rgba(0, 0, 0, 0.65);
+  border-left: 15px solid transparent;
+
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+
 .speech-content h2 {
   color: #ffffff;
   font-size: 3vh;

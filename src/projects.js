@@ -117,7 +117,7 @@ tween3.start()
 tween4.start()
 const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -131,10 +131,30 @@ function updateSpeechBubblePosition() {
   const speechBubbleDiv = document.querySelector('.speech-bubble-projects');
   speechBubbleDiv.style.left = `${window.innerWidth/6}px`;
   speechBubbleDiv.style.top = `${window.innerHeight/3}px`;
+  const crosswalkDiv = document.querySelector('#crosswalk');
+  crosswalkDiv.style.left = `${window.innerWidth/3}px`;
+  crosswalkDiv.style.top = `${window.innerHeight/8}px`;
+  const stellarDiv = document.querySelector('#stellarship');
+  stellarDiv.style.left = `${window.innerWidth/10}px`;
+  stellarDiv.style.top = `${window.innerHeight/8}px`;
+  const cineDiv = document.querySelector('#cinemaker');
+  cineDiv.style.left = `${window.innerWidth/5}px`;
+  cineDiv.style.top = `${window.innerHeight/8}px`;
+  const wDiv = document.querySelector('#website');
+  wDiv.style.left = `${window.innerWidth/1.3}px`;
+  wDiv.style.top = `${window.innerHeight/3}px`;
+
 }
 
-const ambience = new THREE.AmbientLight(0xffffff, 2)
-scene.add(ambience)
+const sun = new THREE.DirectionalLight(0xffffff, 2); 
+const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 ); 
+sun.position.set(100, 100, 40);
+const ambience = new THREE.AmbientLight(0xffffff, .4)
+scene.add(ambience, sun, hemiLight);
+
+
+//const lightHelper = new THREE.PointLightHelper(sun)
+//scene.add(lightHelper,lightHelper1);
 
 function animate(){    
     updateSpeechBubblePosition()  
@@ -173,4 +193,57 @@ canvas.addEventListener('click', (event) => {
       speechBubble.style.display = 'none';
     }
   }
+
+  const intersectsCW = raycaster.intersectObject(starD);
+  if (intersectsCW.length > 0) {
+    const cwBubble = document.querySelector('#crosswalk');
+    if (cwBubble) {
+      cwBubble.style.display = 'block';
+    }
+  } else {
+    const cwBubble = document.querySelector('#crosswalk');
+    if (cwBubble) {
+      cwBubble.style.display = 'none';
+    }
+  }
+
+  const intersectsSS = raycaster.intersectObject(starD2);
+  if (intersectsSS.length > 0) {
+    const ssBubble = document.querySelector('#stellarship');
+    if (ssBubble) {
+      ssBubble.style.display = 'block';
+    }
+  } else {
+    const ssBubble = document.querySelector('#stellarship');
+    if (ssBubble) {
+      ssBubble.style.display = 'none';
+    }
+  }
+
+  const intersectsCM = raycaster.intersectObject(arc);
+  if (intersectsCM.length > 0) {
+    const cmBubble = document.querySelector('#cinemaker');
+    if (cmBubble) {
+      cmBubble.style.display = 'block';
+    }
+  } else {
+    const cmBubble = document.querySelector('#cinemaker');
+    if (cmBubble) {
+      cmBubble.style.display = 'none';
+    }
+  }
+
+  const intersectsW = raycaster.intersectObject(laat);
+  if (intersectsW.length > 0) {
+    const wBubble = document.querySelector('#website');
+    if (wBubble) {
+      wBubble.style.display = 'block';
+    }
+  } else {
+    const wBubble = document.querySelector('#website');
+    if (wBubble) {
+      wBubble.style.display = 'none';
+    }
+  }
+
 });
