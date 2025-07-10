@@ -7,6 +7,9 @@ import { PointLight } from "three";
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
+import { getFresnelMat } from './getFresnelMat.js';
+import getStarfield from './getStarfield.js';
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 1000 );
@@ -20,12 +23,20 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 camera.position.setZ(30);
 renderer.render( scene, camera );
 
+//main planet
 const geometry = new THREE.SphereGeometry(9, 10, 10);
 const meTexture = new THREE.TextureLoader().load("pfp2.jpg")
-const material = new THREE.MeshBasicMaterial( { map: meTexture });
+const material = new THREE.MeshPhysicalMaterial( { map: meTexture });
 const circle = new THREE.Mesh( geometry, material );
 scene.add(circle);
 
+//fresnel effect
+const fresnelMat = getFresnelMat();
+const glowMesh = new THREE.Mesh(geometry, fresnelMat);
+glowMesh.scale.setScalar(1.01);
+scene.add(glowMesh);
+
+//projects mesh
 let projects;
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('projects.glb', (gltf) => {
@@ -36,6 +47,15 @@ gltfLoader.load('projects.glb', (gltf) => {
   scene.add(gltf.scene);
 });
 
+//fresnel for projects
+const projGeo = new THREE.SphereGeometry(3.1,10,10)
+const projectsFresnelMat = getFresnelMat({ rimHex: 0xf6b26b});
+const projectsGlowMesh = new THREE.Mesh(projGeo, projectsFresnelMat)
+projectsGlowMesh.scale.setScalar(1.02);
+projectsGlowMesh.position.set(-20, 7, 0);
+scene.add(projectsGlowMesh);
+
+//flying exclamation mark jit
 const cylinderGeometry = new THREE.CylinderGeometry(1,.7,4.2);
 const cylinderMaterial = new THREE.MeshPhysicalMaterial( { 
   color: 0xf6e604, 
@@ -72,17 +92,14 @@ const mark = new THREE.Mesh(markGeometry, cylinderMaterial);
 mark.position.set( 0, 11, 0)
 scene.add(mark);
 
-const light = new THREE.PointLight( 0xffffff, 3, 0 );
-light.position.set( 1, 16, 2);
+const light = new THREE.PointLight( 0xffffff, 4, 0, 0.2 );
+light.position.set(7, 4, 17);
 
-const light1 = new THREE.PointLight( 0xffffff, 15, 0 );
-light1.position.set(-15, 8, 7);
+const ambience = new THREE.AmbientLight(0xffffff, .2)
+scene.add( light, ambience)
 
-const ambience = new THREE.AmbientLight(0xffffff, 2)
-scene.add(light, light1, ambience)
-
-//const lightHelper = new THREE.PointLightHelper(light1)
-//scene.add(lightHelper);
+// const lightHelper = new THREE.PointLightHelper(light)
+// scene.add(lightHelper);
 
 const backgroundTexture = new THREE.TextureLoader().load('A$.png');
 scene.background = backgroundTexture;
@@ -91,7 +108,7 @@ scene.background = backgroundTexture;
 
 const geometryB =  new THREE.SphereGeometry( 1, 12, 8 );
 const ghTexture = new THREE.TextureLoader().load("gh.png")
-const ghMaterial = new THREE.MeshBasicMaterial( { map: ghTexture });
+const ghMaterial = new THREE.MeshPhysicalMaterial( { map: ghTexture });
 const meshB = new THREE.Mesh ( geometryB,ghMaterial );
 meshB.rotation.y = -1.2;
 meshB.position.set(0,0,10)
@@ -99,7 +116,7 @@ scene.add( meshB );
 
 const geometryC =  new THREE.SphereGeometry( 1, 12, 8 );
 const sTexture = new THREE.TextureLoader().load("steam.png")
-const sMaterial = new THREE.MeshBasicMaterial( { map: sTexture });
+const sMaterial = new THREE.MeshPhysicalMaterial( { map: sTexture });
 const meshC = new THREE.Mesh ( geometryC,sMaterial );
 meshC.rotation.y = -1.6;
 meshC.position.set(0,0,10)
@@ -107,7 +124,7 @@ scene.add( meshC );
 
 const geometryD =  new THREE.SphereGeometry( 1, 12, 8 );
 const lTexture = new THREE.TextureLoader().load("in.png")
-const lMaterial = new THREE.MeshBasicMaterial( { map: lTexture });
+const lMaterial = new THREE.MeshPhysicalMaterial( { map: lTexture });
 const meshD = new THREE.Mesh ( geometryD,lMaterial );
 meshD.rotation.y = -1.2;
 meshD.position.set(0,0,10)
@@ -115,7 +132,7 @@ scene.add( meshD );
 
 const geometryE =  new THREE.SphereGeometry( 1, 12, 8 );
 const iTexture = new THREE.TextureLoader().load("ig.png")
-const iMaterial = new THREE.MeshBasicMaterial( { map: iTexture });
+const iMaterial = new THREE.MeshPhysicalMaterial( { map: iTexture });
 const meshE = new THREE.Mesh ( geometryE,iMaterial );
 meshE.rotation.y = -.6;
 meshE.position.set(0,0,10)
@@ -132,6 +149,7 @@ const startRadians = startAngle + mpi;
 let calcRadians = startRadians;
 const incrementRadians =  360/steps * mpi;
 
+//resize scene on window resize
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -139,6 +157,7 @@ function onWindowResize() {
 }
 window.addEventListener( 'resize', onWindowResize );
 
+//speech bubble responsive positioning
 function updateSpeechBubblePosition() {
 
   const speechBubbleDiv = document.querySelector('.speech-bubble');
@@ -146,15 +165,22 @@ function updateSpeechBubblePosition() {
   speechBubbleDiv.style.top = `${window.innerHeight/3}px`;
 }
 
+//adding stars 
+const starfield = getStarfield();
+scene.add(starfield);
+
+//jit loop
 function animate(){
   updateSpeechBubblePosition();
   requestAnimationFrame( animate );
   circle.rotation.y -= .01
+  glowMesh.rotation.y -= .01;
   mark.rotation.y += .01
   mark.rotation.z -= .01
 
   if (projects) {
     projects.rotation.y -= .005;
+    projectsGlowMesh.rotation.y -= .005;
   }
   meshB.position.set(
     Math.cos(calcRadians) * orbitRadius,
