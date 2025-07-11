@@ -7,6 +7,8 @@ import { PointLight } from "three";
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
+import { getFresnelMat } from './getFresnelMat.js';
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 1000 );
@@ -23,6 +25,7 @@ renderer.render( scene, camera );
 const backgroundTexture = new THREE.TextureLoader().load('A$.png');
 scene.background = backgroundTexture;
 
+//projects main planet
 let projects;
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('projectsmain.glb', (gltf) => {
@@ -31,6 +34,13 @@ gltfLoader.load('projectsmain.glb', (gltf) => {
   gltf.scene.scale.set(10, 10, 10);
   scene.add(gltf.scene);
 });
+
+//projects fresnelmat
+const projGeo = new THREE.SphereGeometry(10.1,10,10)
+const projectsFresnelMat = getFresnelMat({ rimHex: 0xf6b26b});
+const projectsGlowMesh = new THREE.Mesh(projGeo, projectsFresnelMat)
+projectsGlowMesh.scale.setScalar(1.01);
+scene.add(projectsGlowMesh);
 
 let starD;
 const gltfLoader2 = new GLTFLoader();
@@ -126,6 +136,7 @@ function onWindowResize() {
 }
 window.addEventListener( 'resize', onWindowResize );
 
+//responsive speech bubble positions
 function updateSpeechBubblePosition() {
 
   const speechBubbleDiv = document.querySelector('.speech-bubble-projects');
@@ -160,6 +171,7 @@ function animate(){
     updateSpeechBubblePosition()  
     if (projects) {
         projects.rotation.y -= .01;
+        projectsGlowMesh.rotation.y -= .01;
     }
 
     requestAnimationFrame( animate );
