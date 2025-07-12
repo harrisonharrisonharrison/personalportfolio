@@ -127,7 +127,7 @@ tween3.start()
 tween4.start()
 const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
 
-//const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -157,15 +157,14 @@ function updateSpeechBubblePosition() {
 
 }
 
-const sun = new THREE.DirectionalLight(0xffffff, 2); 
-const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 ); 
+const sun = new THREE.DirectionalLight(0xffffff, 5); 
 sun.position.set(100, 100, 40);
 const ambience = new THREE.AmbientLight(0xffffff, .4)
-scene.add(ambience, sun, hemiLight);
+scene.add(sun, ambience);
 
 
-//const lightHelper = new THREE.PointLightHelper(sun)
-//scene.add(lightHelper,lightHelper1);
+// const lightHelper = new THREE.PointLightHelper(sun)
+// scene.add(lightHelper);
 
 function animate(){    
     updateSpeechBubblePosition()  

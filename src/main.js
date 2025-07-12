@@ -55,6 +55,25 @@ projectsGlowMesh.scale.setScalar(1.02);
 projectsGlowMesh.position.set(-20, 7, 0);
 scene.add(projectsGlowMesh);
 
+//statistics planet
+let stats;
+const gltfLoader1 = new GLTFLoader();
+gltfLoader1.load('stats.glb', (gltf1) => {
+  stats = gltf1.scene;
+  gltf1.scene.position.set(20, -7, 0);
+  gltf1.scene.scale.set(3, 3, 3);
+  gltf1.scene.rotation.x = -.2;
+  scene.add(gltf1.scene);
+});
+
+//stats fresnel
+const statsGeo = new THREE.SphereGeometry(3.1,10,10)
+const statsFresnelMat = getFresnelMat({ rimHex: 0x4287f5});
+const statsGlowMesh = new THREE.Mesh(statsGeo, statsFresnelMat)
+statsGlowMesh.scale.setScalar(1.02);
+statsGlowMesh.position.set(20, -7, 0);
+scene.add(statsGlowMesh);
+
 //flying exclamation mark jit
 const cylinderGeometry = new THREE.CylinderGeometry(1,.7,4.2);
 const cylinderMaterial = new THREE.MeshPhysicalMaterial( { 
@@ -92,11 +111,15 @@ const mark = new THREE.Mesh(markGeometry, cylinderMaterial);
 mark.position.set( 0, 11, 0)
 scene.add(mark);
 
+// lights
 const light = new THREE.PointLight( 0xffffff, 4, 0, 0.2 );
 light.position.set(7, 4, 17);
 
+const light2 = new THREE.PointLight( 0xffffff, 5,0 , 1 );
+light2.position.set(20, -5, 4);
+
 const ambience = new THREE.AmbientLight(0xffffff, .2)
-scene.add( light, ambience)
+scene.add( light, light2, ambience)
 
 // const lightHelper = new THREE.PointLightHelper(light)
 // scene.add(lightHelper);
@@ -182,6 +205,10 @@ function animate(){
     projects.rotation.y -= .005;
     projectsGlowMesh.rotation.y -= .005;
   }
+  if (stats) {
+    stats.rotation.y -= .005
+    statsGlowMesh.rotation.y -= .005
+  }
   meshB.position.set(
     Math.cos(calcRadians) * orbitRadius,
     Math.cos(calcRadians) * orbitRadius,
@@ -219,10 +246,14 @@ const canvas = renderer.domElement;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
+//scroll animation
 canvas.addEventListener('wheel', (event) => {
     circle.rotation.y -= .1;
     if (projects) {
       projects.rotation.y -= .05;
+    }
+    if (stats) {
+      stats.rotation.y -= .05;
     }
 });
 
