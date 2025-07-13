@@ -302,6 +302,11 @@ canvas.addEventListener('click', (event) => {
   if (intersectsProj.length > 0) {
     window.open('projects.html', '_self');
   }
+
+  const intersectsStats = raycaster.intersectObject(stats);
+  if (intersectsStats.length > 0) {
+    window.open('stats.html', '_self');
+  }
 });
 
 

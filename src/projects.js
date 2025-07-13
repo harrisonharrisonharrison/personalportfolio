@@ -127,7 +127,7 @@ tween3.start()
 tween4.start()
 const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;

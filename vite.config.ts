@@ -9,6 +9,7 @@ export default defineConfig({
   input: {
   home: '/index.html',
   projects: '/projects.html',
+  stats: '/stats.html',
   },
   },
   },
