@@ -124,8 +124,8 @@ scene.add( light, light2, ambience)
 // const lightHelper = new THREE.PointLightHelper(light)
 // scene.add(lightHelper);
 
-const backgroundTexture = new THREE.TextureLoader().load('A$.png');
-scene.background = backgroundTexture;
+// const backgroundTexture = new THREE.TextureLoader().load('A$.png');
+// scene.background = backgroundTexture;
 
 //const controls = new OrbitControls(camera, renderer.domElement);
 

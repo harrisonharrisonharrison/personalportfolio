@@ -22,8 +22,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 camera.position.setZ(30);
 renderer.render( scene, camera );
 
-const backgroundTexture = new THREE.TextureLoader().load('A$.png');
-scene.background = backgroundTexture;
+// const backgroundTexture = new THREE.TextureLoader().load('A$.png');
+// scene.background = backgroundTexture;
 
 //projects main planet
 let projects;
