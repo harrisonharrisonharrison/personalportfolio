@@ -58,26 +58,39 @@ const geometry2 = new THREE.BoxGeometry(9, 25, 10);
 const crosswalk = new THREE.Mesh( geometry2, material );
 crosswalk.position.set(8, 18, -10);
 scene.add(crosswalk);
-// let starD2;
-// const gltfLoader3 = new GLTFLoader();
-// gltfLoader3.load('starD.glb', (gltf2) => {
-//   starD2 = gltf2.scene;
-//   gltf2.scene.position.set(-20, 32, -1000);
-//   gltf2.scene.scale.set(.1, .1, .1);
-//   gltf2.scene.rotation.y = -Math.PI/2;
-//   gltf2.scene.rotation.x = .52;
-//   //scene.add(gltf2.scene);
-// });
+
+let car;
+const gltfLoader3 = new GLTFLoader();
+gltfLoader3.load('car.glb', (gltf2) => {
+  car = gltf2.scene;
+  gltf2.scene.position.set(0,3,10);
+  gltf2.scene.rotation.y = Math.PI * 7/2;
+  gltf2.scene.scale.set(.3, .3, .3);
+  scene.add(gltf2.scene);
+
+});
+const tween = new TWEEN.Tween({ x: -30 })
+    .to({ x: 30 }, 3000)
+    .onUpdate((coords) => {
+      car.position.x = coords.x;
+    })
+    .delay(500)
+    .repeat(40)
+    .easing(TWEEN.Easing.Bounce.In
+);
+
+tween.start();
+const tweenGroup = new TWEEN.Group(tween);
 
 // let arc;
 // const gltfLoader4 = new GLTFLoader();
 // gltfLoader4.load('arc.glb', (gltf3) => {
 //   arc = gltf3.scene;
-//   gltf3.scene.position.set(-50, 17, -1000);
+//   gltf3.scene.position.set(-0, 0, -0);
 //   gltf3.scene.scale.set(10, 10, 10  );
 //   gltf3.scene.rotation.y = Math.PI/8;
 //   gltf3.scene.rotation.x = .7;
-//   //scene.add(gltf3.scene);
+//   scene.add(gltf3.scene);
 // });
 
 // let laat;
@@ -90,15 +103,6 @@ scene.add(crosswalk);
 //   //scene.add(gltf4.scene);
 // });
 
-// const tween = new TWEEN.Tween({y:1000, z: -1000 })
-//   .to({z:-42, y:32},1500)
-//   .onUpdate((coords) => {
-//     starD.position.z = coords.z;
-//     starD.position.y = coords.y;
-//   })
-//   .delay(1000)
-//   .easing(TWEEN.Easing.Bounce.In
-// );
 // const tween2 = new TWEEN.Tween({y:1000, z: -1000 })
 //   .to({z:-42, y:20},1500)
 //   .onUpdate((coords) => {
@@ -126,12 +130,10 @@ scene.add(crosswalk);
 //   .delay(500)
 //   .easing(TWEEN.Easing.Bounce.In
 // );
-// tween.start()
 // tween2.start()
 // tween3.start()
 // tween4.start()
-// const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
-
+// const starT = new TWEEN.Group(tween3);
 //const controls = new OrbitControls(camera, renderer.domElement);
 
 function onWindowResize() {
@@ -175,10 +177,14 @@ scene.add(ambience);
 
 function animate(){    
     updateSpeechBubblePosition()  
-
     requestAnimationFrame( animate );
-    // starTween.update();
-    
+    tweenGroup.update();
+    scene.traverse(function (object){
+      if (object.isCamera){
+        camera = object
+        renderer.render( scene, camera );
+      }
+    })
 }
 animate();
 
