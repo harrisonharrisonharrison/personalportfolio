@@ -8,124 +8,129 @@ import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 import { getFresnelMat } from './getFresnelMat.js';
+import { cross } from 'three/tsl';
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 1000 );
-
+let camera
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
 
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
-camera.position.setZ(30);
-renderer.render( scene, camera );
 
-// const backgroundTexture = new THREE.TextureLoader().load('A$.png');
-// scene.background = backgroundTexture;
+const backgroundTexture = new THREE.TextureLoader().load('cyberbg.jpg');
+scene.background = backgroundTexture;
+scene.backgroundIntensity = .05;
+scene.backgroundBlurriness = 0.5;
 
-//projects main planet
-let projects;
+//projects main
 const gltfLoader = new GLTFLoader();
-gltfLoader.load('projectsmain.glb', (gltf) => {
-  projects = gltf.scene;
+gltfLoader.load('scene.gltf', (gltf) => {
   gltf.scene.position.set(0, 0, 0);
-  gltf.scene.scale.set(10, 10, 10);
   scene.add(gltf.scene);
-});
-
-//projects fresnelmat
-const projGeo = new THREE.SphereGeometry(10.1,10,10)
-const projectsFresnelMat = getFresnelMat({ rimHex: 0xf6b26b});
-const projectsGlowMesh = new THREE.Mesh(projGeo, projectsFresnelMat)
-projectsGlowMesh.scale.setScalar(1.01);
-scene.add(projectsGlowMesh);
-
-let starD;
-const gltfLoader2 = new GLTFLoader();
-gltfLoader2.load('starD.glb', (gltf1) => {
-  starD = gltf1.scene;
-  gltf1.scene.position.set(10, 32, -1000);
-  gltf1.scene.scale.set(.1, .1, .1);
-  gltf1.scene.rotation.y = -Math.PI/2;
-  gltf1.scene.rotation.x = .52;
-  scene.add(gltf1.scene);
-});
-
-let starD2;
-const gltfLoader3 = new GLTFLoader();
-gltfLoader3.load('starD.glb', (gltf2) => {
-  starD2 = gltf2.scene;
-  gltf2.scene.position.set(-20, 32, -1000);
-  gltf2.scene.scale.set(.1, .1, .1);
-  gltf2.scene.rotation.y = -Math.PI/2;
-  gltf2.scene.rotation.x = .52;
-  scene.add(gltf2.scene);
-});
-
-let arc;
-const gltfLoader4 = new GLTFLoader();
-gltfLoader4.load('arc.glb', (gltf3) => {
-  arc = gltf3.scene;
-  gltf3.scene.position.set(-50, 17, -1000);
-  gltf3.scene.scale.set(10, 10, 10  );
-  gltf3.scene.rotation.y = Math.PI/8;
-  gltf3.scene.rotation.x = .7;
-  scene.add(gltf3.scene);
-});
-
-let laat;
-const gltfLoader5 = new GLTFLoader();
-gltfLoader5.load('laat.glb', (gltf4) => {
-  laat = gltf4.scene;
-  gltf4.scene.position.set(20, 0, -1000);
-  gltf4.scene.scale.set(.01, .01, .01  );
-  gltf4.scene.rotation.y = Math.PI/1.1;
-  scene.add(gltf4.scene);
-});
-
-const tween = new TWEEN.Tween({y:1000, z: -1000 })
-  .to({z:-42, y:32},1500)
-  .onUpdate((coords) => {
-    starD.position.z = coords.z;
-    starD.position.y = coords.y;
+  scene.traverse(function (object){
+    if (object.isCamera){
+      camera = object
+      renderer.render( scene, camera );
+    }
   })
-  .delay(1000)
-  .easing(TWEEN.Easing.Bounce.In
-);
-const tween2 = new TWEEN.Tween({y:1000, z: -1000 })
-  .to({z:-42, y:20},1500)
-  .onUpdate((coords) => {
-    starD2.position.z = coords.z;
-    starD2.position.y = coords.y;
-  })
-  .delay(1300)
-  .easing(TWEEN.Easing.Bounce.In
-);
-const tween3 = new TWEEN.Tween({y:1000, z: -1000 })
-  .to({z:-20, y:17},3500)
-  .onUpdate((coords) => {
-    arc.position.z = coords.z;
-    arc.position.y = coords.y;
-  })
-  .delay(200)
-  .easing(TWEEN.Easing.Bounce.In
-);
-const tween4 = new TWEEN.Tween({y:1000, z: -1000 })
-  .to({z:0, y:0},3500)
-  .onUpdate((coords) => {
-    laat.position.z = coords.z;
-    laat.position.y = coords.y;
-  })
-  .delay(500)
-  .easing(TWEEN.Easing.Bounce.In
-);
-tween.start()
-tween2.start()
-tween3.start()
-tween4.start()
-const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
+});
+
+const geometry = new THREE.BoxGeometry(9, 14, 10);
+const meTexture = new THREE.TextureLoader().load("pfp2.jpg")
+const material = new THREE.MeshPhysicalMaterial();
+const stellarship = new THREE.Mesh( geometry, material );
+stellarship.position.set(-2, 10, 3);
+stellarship.material.visible=false;
+scene.add(stellarship);
+
+const cinemaker = new THREE.Mesh( geometry, material );
+cinemaker.position.set(13, 10, 3);
+scene.add(cinemaker);
+
+const personal = new THREE.Mesh( geometry, material );
+personal.position.set(-12, 10, 3.2);
+scene.add(personal);
+
+const geometry2 = new THREE.BoxGeometry(9, 25, 10);
+const crosswalk = new THREE.Mesh( geometry2, material );
+crosswalk.position.set(8, 18, -10);
+scene.add(crosswalk);
+// let starD2;
+// const gltfLoader3 = new GLTFLoader();
+// gltfLoader3.load('starD.glb', (gltf2) => {
+//   starD2 = gltf2.scene;
+//   gltf2.scene.position.set(-20, 32, -1000);
+//   gltf2.scene.scale.set(.1, .1, .1);
+//   gltf2.scene.rotation.y = -Math.PI/2;
+//   gltf2.scene.rotation.x = .52;
+//   //scene.add(gltf2.scene);
+// });
+
+// let arc;
+// const gltfLoader4 = new GLTFLoader();
+// gltfLoader4.load('arc.glb', (gltf3) => {
+//   arc = gltf3.scene;
+//   gltf3.scene.position.set(-50, 17, -1000);
+//   gltf3.scene.scale.set(10, 10, 10  );
+//   gltf3.scene.rotation.y = Math.PI/8;
+//   gltf3.scene.rotation.x = .7;
+//   //scene.add(gltf3.scene);
+// });
+
+// let laat;
+// const gltfLoader5 = new GLTFLoader();
+// gltfLoader5.load('laat.glb', (gltf4) => {
+//   laat = gltf4.scene;
+//   gltf4.scene.position.set(20, 0, -1000);
+//   gltf4.scene.scale.set(.01, .01, .01  );
+//   gltf4.scene.rotation.y = Math.PI/1.1;
+//   //scene.add(gltf4.scene);
+// });
+
+// const tween = new TWEEN.Tween({y:1000, z: -1000 })
+//   .to({z:-42, y:32},1500)
+//   .onUpdate((coords) => {
+//     starD.position.z = coords.z;
+//     starD.position.y = coords.y;
+//   })
+//   .delay(1000)
+//   .easing(TWEEN.Easing.Bounce.In
+// );
+// const tween2 = new TWEEN.Tween({y:1000, z: -1000 })
+//   .to({z:-42, y:20},1500)
+//   .onUpdate((coords) => {
+//     starD2.position.z = coords.z;
+//     starD2.position.y = coords.y;
+//   })
+//   .delay(1300)
+//   .easing(TWEEN.Easing.Bounce.In
+// );
+// const tween3 = new TWEEN.Tween({y:1000, z: -1000 })
+//   .to({z:-20, y:17},3500)
+//   .onUpdate((coords) => {
+//     arc.position.z = coords.z;
+//     arc.position.y = coords.y;
+//   })
+//   .delay(200)
+//   .easing(TWEEN.Easing.Bounce.In
+// );
+// const tween4 = new TWEEN.Tween({y:1000, z: -1000 })
+//   .to({z:0, y:0},3500)
+//   .onUpdate((coords) => {
+//     laat.position.z = coords.z;
+//     laat.position.y = coords.y;
+//   })
+//   .delay(500)
+//   .easing(TWEEN.Easing.Bounce.In
+// );
+// tween.start()
+// tween2.start()
+// tween3.start()
+// tween4.start()
+// const starTween = new TWEEN.Group(tween,tween2,tween3,tween4);
 
 //const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -133,6 +138,8 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.render(scene, camera);
+
 }
 window.addEventListener( 'resize', onWindowResize );
 
@@ -140,27 +147,27 @@ window.addEventListener( 'resize', onWindowResize );
 function updateSpeechBubblePosition() {
 
   const speechBubbleDiv = document.querySelector('.speech-bubble-projects');
-  speechBubbleDiv.style.left = `${window.innerWidth/6}px`;
-  speechBubbleDiv.style.top = `${window.innerHeight/3}px`;
+  speechBubbleDiv.style.left = `${window.innerWidth/7}px`;
+  speechBubbleDiv.style.top = `${window.innerHeight/11}px`;
   const crosswalkDiv = document.querySelector('#crosswalk');
-  crosswalkDiv.style.left = `${window.innerWidth/3}px`;
+  crosswalkDiv.style.left = `${window.innerWidth/2.3}px`;
   crosswalkDiv.style.top = `${window.innerHeight/8}px`;
   const stellarDiv = document.querySelector('#stellarship');
-  stellarDiv.style.left = `${window.innerWidth/10}px`;
-  stellarDiv.style.top = `${window.innerHeight/8}px`;
+  stellarDiv.style.left = `${window.innerWidth/5}px`;
+  stellarDiv.style.top = `${window.innerHeight/2}px`;
   const cineDiv = document.querySelector('#cinemaker');
-  cineDiv.style.left = `${window.innerWidth/5}px`;
-  cineDiv.style.top = `${window.innerHeight/8}px`;
+  cineDiv.style.left = `${window.innerWidth/1.3}px`;
+  cineDiv.style.top = `${window.innerHeight/2}px`;
   const wDiv = document.querySelector('#website');
-  wDiv.style.left = `${window.innerWidth/1.3}px`;
-  wDiv.style.top = `${window.innerHeight/3}px`;
+  wDiv.style.left = `${window.innerWidth/4}px`;
+  wDiv.style.top = `${window.innerHeight/2}px`;
 
 }
 
-const sun = new THREE.DirectionalLight(0xffffff, 5); 
-sun.position.set(100, 100, 40);
+// const sun = new THREE.DirectionalLight(0xffffff, 5); 
+// sun.position.set(100, 100, 40);
 const ambience = new THREE.AmbientLight(0xffffff, .4)
-scene.add(sun, ambience);
+scene.add(ambience);
 
 
 // const lightHelper = new THREE.PointLightHelper(sun)
@@ -168,16 +175,11 @@ scene.add(sun, ambience);
 
 function animate(){    
     updateSpeechBubblePosition()  
-    if (projects) {
-        projects.rotation.y -= .01;
-        projectsGlowMesh.rotation.y -= .01;
-    }
 
     requestAnimationFrame( animate );
-    starTween.update();
-    renderer.render(scene, camera);
+    // starTween.update();
+    
 }
-
 animate();
 
 const canvas = renderer.domElement;
@@ -190,20 +192,8 @@ canvas.addEventListener('click', (event) => {
   mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObject(projects);
-  if (intersects.length > 0) {
-    const speechBubble = document.querySelector('.speech-bubble-projects');
-    if (speechBubble) {
-      speechBubble.style.display = 'block';
-    }
-  } else {
-    const speechBubble = document.querySelector('.speech-bubble-projects');
-    if (speechBubble) {
-      speechBubble.style.display = 'none';
-    }
-  }
 
-  const intersectsCW = raycaster.intersectObject(starD);
+  const intersectsCW = raycaster.intersectObject(crosswalk);
   if (intersectsCW.length > 0) {
     const cwBubble = document.querySelector('#crosswalk');
     if (cwBubble) {
@@ -216,7 +206,7 @@ canvas.addEventListener('click', (event) => {
     }
   }
 
-  const intersectsSS = raycaster.intersectObject(starD2);
+  const intersectsSS = raycaster.intersectObject(stellarship);
   if (intersectsSS.length > 0) {
     const ssBubble = document.querySelector('#stellarship');
     if (ssBubble) {
@@ -229,7 +219,7 @@ canvas.addEventListener('click', (event) => {
     }
   }
 
-  const intersectsCM = raycaster.intersectObject(arc);
+  const intersectsCM = raycaster.intersectObject(cinemaker);
   if (intersectsCM.length > 0) {
     const cmBubble = document.querySelector('#cinemaker');
     if (cmBubble) {
@@ -242,7 +232,7 @@ canvas.addEventListener('click', (event) => {
     }
   }
 
-  const intersectsW = raycaster.intersectObject(laat);
+  const intersectsW = raycaster.intersectObject(personal);
   if (intersectsW.length > 0) {
     const wBubble = document.querySelector('#website');
     if (wBubble) {
