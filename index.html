@@ -28,7 +28,27 @@
     <div id="warning-message">
         this website is only viewable in landscape mode
     </div>
-    <main class="">  
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const links = document.querySelectorAll(".navbar-links a");
+          const currentPath = window.location.pathname;
+
+          links.forEach(link => {
+            if (link.getAttribute("href") === currentPath) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    <div style="color: white; z-index: 1000; text-align: center; position: fixed; top: 3vh; width:100%;">
+        <div class="navbar-content">
+          <div class="navbar-links">
+            <a href="/projects">Projects</a>
+            <a href="/">Home</a>
+          </div>
+        </div>
+    </div>
+    <main>
       <!-- luh calm about me -->
       <div class="speech-bubble">
         <div class="speech-content">

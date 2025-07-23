@@ -193,3 +193,20 @@ main {
   pointer-events: none;
   animation: fadeOut 3s;
 }
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.navbar-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: white;
+}
