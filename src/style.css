@@ -194,6 +194,14 @@ main {
   animation: fadeOut 3s;
 }
 
+.navbar {
+  color: white; 
+  border: 2px solid white; 
+  border-radius: 20px; 
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+}
 .navbar-links a {
   color: white;
   text-decoration: none;
