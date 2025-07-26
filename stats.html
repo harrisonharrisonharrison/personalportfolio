@@ -5,6 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/pfp2.jpg" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitcount+Grid+Double&effect=fire" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo+2&effect=fire" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Space+Mono" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>statistics</title>
   </head>
@@ -30,15 +31,19 @@
         this website is only viewable in landscape mode
     </div>
     <main class=""> 
-        <div style="color: #ffffff;
-                    font-size: 3vh;
-                    font-weight: normal;
-                    margin-bottom: 10px;
-                    font-family: 'Bitcount Grid Double', sans-serif;" 
-            class="font-effect-fire row-start-4 col-start-6 col-span-2 z-10 text-center flex items-center justify-center"
-            ><a href="/">Return to Home</a></div>
+        <div style="color: white; z-index: 1000; text-align: center; position: fixed; top: 3vh; width:100%;">
+            <div class='navbar'>
+              <div class="navbar-links" style="font-family: 'Space Mono'; font-weight: bolder;">
+                <a href="/projects.html">Projects</a>
+                <a href="/">Home</a>
+                <a>Statistics (WIP)</a>
+              </div>
+            </div>
+        </div>
+        <p class="font-effect-fire z-10 w-screen text-center align-middle h-screen">You are visitor number:  <span id="visitor-count"> Loading...</span></p>
     </main>
     <script type="module" src="src/stats.js"></script>
+    <script type="module" src="src/visitors.js"></script>
   </body>
   
 </html>
