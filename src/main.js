@@ -63,7 +63,7 @@ gltfLoader1.load('stats.glb', (gltf1) => {
   gltf1.scene.position.set(20, -7, 0);
   gltf1.scene.scale.set(3, 3, 3);
   gltf1.scene.rotation.x = -.2;
-  //scene.add(gltf1.scene);
+  scene.add(gltf1.scene);
 });
 
 //stats fresnel

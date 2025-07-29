@@ -31,13 +31,25 @@
     <div id="warning-message">
         this website is only viewable in landscape mode
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const links = document.querySelectorAll(".navbar-links a");
+          const currentPath = window.location.pathname;
+
+          links.forEach(link => {
+            if (link.getAttribute("href") === currentPath) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
     <main class=""> 
         <div style="color: white; z-index: 1000; text-align: center; position: fixed; top: 3vh; width:100%;">
             <div class='navbar'>
               <div class="navbar-links" style="font-family: 'Space Mono'; font-weight: bolder;">
                 <a href="/projects.html">Projects</a>
                 <a href="/">Home</a>
-                <a>Statistics (WIP)</a>
+                <a href="/stats.html">Statistics</a>
               </div>
             </div>
         </div>
