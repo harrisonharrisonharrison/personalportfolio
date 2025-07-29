@@ -9,6 +9,8 @@ import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 import { getFresnelMat } from './getFresnelMat.js';
 
+import getStarfield from './getStarfield.js';
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 1000 );
@@ -55,6 +57,9 @@ const statsGlowMesh = new THREE.Mesh(statsGeo, statsFresnelMat)
 statsGlowMesh.scale.setScalar(1.01);
 scene.add(statsGlowMesh);
 
+//add stars
+const starfield = getStarfield();
+scene.add(starfield);
 
 //animate the scene
 function animate(){    
