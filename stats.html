@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bitcount+Grid+Double&effect=fire" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Exo+2&effect=fire" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Space+Mono" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Sixtyfour+Convergence" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>statistics</title>
   </head>
@@ -40,7 +41,25 @@
               </div>
             </div>
         </div>
-        <p class="font-effect-fire z-10 w-screen text-center align-middle mt-100">You are visitor number:  <span id="visitor-count"> Loading...</span></p>
+        <div class="conveyor-belt">
+            <div class="bubble-track">
+                <!-- First set of bubbles -->
+                <div class="conveyor-bubble">
+                    <h3>Monthly Visitors</h3>
+                    <span class="text-3xl" style="font-family: 'Sixtyfour Convergence';" id="visitor-month"> Loading...</span></p>
+                    <p>visits this month</p>
+                </div>
+                <div class="conveyor-bubble">
+                    <h3>Page Views</h3>
+                    <span class="text-3xl" style="font-family: 'Sixtyfour Convergence';" id="visitor-count"> Loading...</span></p>
+                    <p>total page views</p>
+                </div>
+                <div class="conveyor-bubble">
+                    <h3>Last Update</h3>
+                    <span class="text-3xl" style="font-family: 'Sixtyfour Convergence';" id="visitor-unique"> 7/28/2025</span></p>
+                </div>
+            </div>
+        </div>
     </main>
     <script type="module" src="src/stats.js"></script>
     <script type="module" src="src/visitors.js"></script>

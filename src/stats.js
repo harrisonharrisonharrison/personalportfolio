@@ -55,13 +55,14 @@ const statsGlowMesh = new THREE.Mesh(statsGeo, statsFresnelMat)
 statsGlowMesh.scale.setScalar(1.01);
 scene.add(statsGlowMesh);
 
+
 //animate the scene
 function animate(){    
-    requestAnimationFrame( animate );
-    if (stats) {
-        stats.rotation.y -= .01;
-        statsGlowMesh.rotation.y -= .01;
+    if (stats) {    
+      stats.rotation.y -= .005;
+      statsGlowMesh.rotation.y -= .005;
     }
+    requestAnimationFrame( animate );
     renderer.render(scene, camera);
 }
 
@@ -74,7 +75,6 @@ const mouse = new THREE.Vector2();
 //scroll animation
 canvas.addEventListener('wheel', (event) => {
     if (stats) {
-      stats.rotation.y -= .05;
-      statsGlowMesh.rotation.y -= .05;
+      
     }
 });

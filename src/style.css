@@ -218,3 +218,92 @@ main {
   width: 100%;
   background-color: white;
 }
+
+/* conveyor belt */
+.conveyor-belt {
+    position: fixed;
+    bottom: 30vh;
+    left: 25%;
+    width: 50%;
+    height: 140px;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.bubble-track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /*animation: scroll-left 5s linear infinite;*/
+    gap: 3rem;
+}
+
+.conveyor-bubble {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    min-width: 200px;
+    text-align: center;
+    position: relative;
+}
+
+.conveyor-bubble:nth-child(odd) {
+    background: rgba(66, 135, 245, 0.15);
+    border-color: rgba(66, 135, 245, 0.5);
+}
+
+.conveyor-bubble:nth-child(even) {
+    background: rgba(245, 66, 135, 0.15);
+    border-color: rgba(245, 66, 135, 0.5);
+}
+
+.conveyor-bubble h3 {
+    color: #ffffff;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.conveyor-bubble p {
+    color: #afafaf;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.stat-number {
+    color: #4287f5;
+    font-family: 'Sixtyfour Convergence';
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.conveyor-bubble:nth-child(even) .stat-number {
+    color: #f54287;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Hover effects */
+.conveyor-bubble:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Pause animation on hover */
+.conveyor-belt:hover .bubble-track {
+    animation-play-state: paused;
+}

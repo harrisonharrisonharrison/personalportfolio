@@ -38,3 +38,35 @@ async function incrementVisitorCount() {
   }
 
   incrementVisitorCount();
+
+async function logVisit() {
+  const { data, error } = await supabase
+    .from('visit_logs')
+    .insert([{ }]); // timestamp will default to now()
+
+  if (error) {
+    console.error('Error logging visit:', error);
+    return;
+  }
+}
+
+logVisit();
+
+async function getMonthlyVisitors() {
+  const now = new Date();
+  const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+  const { count, error } = await supabase
+    .from('visit_logs')
+    .select('*', { count: 'exact', head: true })
+    .gte('timestamp', firstOfMonth); // only include this month's visits
+
+  if (error) {
+    console.error('Error counting visits this month:', error);
+    return;
+  }
+
+  document.getElementById('visitor-month').textContent = count;
+}
+
+getMonthlyVisitors();
