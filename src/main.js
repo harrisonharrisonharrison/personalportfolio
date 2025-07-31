@@ -321,6 +321,19 @@ canvas.addEventListener('click', (event) => {
   if (intersectsStats.length > 0) {
     window.open('stats.html', '_self');
   }
+
+  const intersectsSettings = raycaster.intersectObject(settings);
+  if (intersectsSettings.length > 0) {
+    const settingsBubble = document.querySelector('#settings');
+    if (settingsBubble) {
+      settingsBubble.style.display = 'flex';
+    }
+  } else {
+    const settingsBubble = document.querySelector('#settings');
+    if (settingsBubble) {
+      settingsBubble.style.display = 'none';
+    }
+  }
 });
 
 
