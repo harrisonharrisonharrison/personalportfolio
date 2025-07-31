@@ -10,6 +10,7 @@ import { OrbitControls } from "three/examples/jsm/Addons.js";
 import { getFresnelMat } from './getFresnelMat.js';
 import getStarfield from './getStarfield.js';
 
+import { lightPosition } from './lights.js';
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, .1, 1000 );
@@ -223,6 +224,10 @@ function animate(){
     settings.rotation.y -= .005;
     settings.rotation.x -= .005;
   }
+  //light position and brightness update
+  light2.position.set(lightPosition.x, lightPosition.y, lightPosition.z);
+  light2.intensity = lightPosition.brightness;
+
   meshB.position.set(
     Math.cos(calcRadians) * orbitRadius,
     Math.cos(calcRadians) * orbitRadius,
