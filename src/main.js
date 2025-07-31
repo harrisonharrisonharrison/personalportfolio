@@ -74,6 +74,16 @@ statsGlowMesh.scale.setScalar(1.02);
 statsGlowMesh.position.set(20, -7, 0);
 scene.add(statsGlowMesh);
 
+let settings;
+const gltfLoader2 = new GLTFLoader();
+gltfLoader2.load('gear.glb', (gltf2) => {
+  settings = gltf2.scene;
+  gltf2.scene.position.set(-20, -7, 0);
+  gltf2.scene.scale.set(2.5, 2.5, 2.5);
+  gltf2.scene.rotation.x = .4;
+  scene.add(gltf2.scene);
+});
+
 //flying exclamation mark jit
 const cylinderGeometry = new THREE.CylinderGeometry(1,.7,4.2);
 const cylinderMaterial = new THREE.MeshPhysicalMaterial( { 
@@ -208,6 +218,10 @@ function animate(){
   if (stats) {
     stats.rotation.y -= .005
     statsGlowMesh.rotation.y -= .005
+  }
+  if (settings) {
+    settings.rotation.y -= .005;
+    settings.rotation.x -= .005;
   }
   meshB.position.set(
     Math.cos(calcRadians) * orbitRadius,
