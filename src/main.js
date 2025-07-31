@@ -72,7 +72,7 @@ const statsFresnelMat = getFresnelMat({ rimHex: 0x4287f5});
 const statsGlowMesh = new THREE.Mesh(statsGeo, statsFresnelMat)
 statsGlowMesh.scale.setScalar(1.02);
 statsGlowMesh.position.set(20, -7, 0);
-//scene.add(statsGlowMesh);
+scene.add(statsGlowMesh);
 
 //flying exclamation mark jit
 const cylinderGeometry = new THREE.CylinderGeometry(1,.7,4.2);
