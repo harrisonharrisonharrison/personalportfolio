@@ -79,7 +79,7 @@ let settings;
 const gltfLoader2 = new GLTFLoader();
 gltfLoader2.load('gear.glb', (gltf2) => {
   settings = gltf2.scene;
-  gltf2.scene.position.set(-20, -7, 0);
+  gltf2.scene.position.set(-25, -12, 0);
   gltf2.scene.scale.set(2.5, 2.5, 2.5);
   gltf2.scene.rotation.x = .4;
   scene.add(gltf2.scene);
@@ -273,6 +273,9 @@ canvas.addEventListener('wheel', (event) => {
     }
     if (stats) {
       stats.rotation.y -= .05;
+    }
+    if ( settings) {
+      settings.rotation.y -= .05;
     }
 });
 
