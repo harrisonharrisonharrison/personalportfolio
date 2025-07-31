@@ -113,11 +113,48 @@
           </div>
         </div>
       </div>
+      <!-- settings modal -->
+       <div style="display:flex; justify-content: center; align-items: center; position: fixed; width: 100%; height: 100%;">
+        <div id="settings" style="display: block; width: 400px" class="speech-bubble">
+          <div class="speech-content">
+            <h2 class="font-effect-fire">Settings</h2>
+            <div class="page active" data-page="1">
+              <p>
+                Light Position
+              </p>
+              <div class="slider-container">
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>X</span>
+                        <span id="x-value">20</span>
+                    </div>
+                    <input type="range" id="x-slider" class="slider" min="-100" max="100" value="20">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Y</span>
+                        <span id="y-value">-5</span>
+                    </div>
+                    <input type="range" id="y-slider" class="slider" min="-100" max="100" value="-5">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>Z</span>
+                        <span id="z-value">4</span>
+                    </div>
+                    <input type="range" id="z-slider" class="slider" min="-100" max="100" value="4">
+                </div>
+            </div>  
+          </div>
+        </div>
+       </div>
     </main>
     
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/navigation.js"></script>
-    
+    <script type="module" src="/src/lights.js"></script>
 
   </body>
   
