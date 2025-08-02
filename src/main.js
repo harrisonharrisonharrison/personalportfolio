@@ -61,7 +61,7 @@ let stats;
 const gltfLoader1 = new GLTFLoader();
 gltfLoader1.load('stats.glb', (gltf1) => {
   stats = gltf1.scene;
-  gltf1.scene.position.set(20, -7, 0);
+  gltf1.scene.position.set(20, -10, 0);
   gltf1.scene.scale.set(3, 3, 3);
   gltf1.scene.rotation.x = -.2;
   scene.add(gltf1.scene);
@@ -72,14 +72,14 @@ const statsGeo = new THREE.SphereGeometry(3.1,10,10)
 const statsFresnelMat = getFresnelMat({ rimHex: 0x4287f5});
 const statsGlowMesh = new THREE.Mesh(statsGeo, statsFresnelMat)
 statsGlowMesh.scale.setScalar(1.02);
-statsGlowMesh.position.set(20, -7, 0);
+statsGlowMesh.position.set(20, -10, 0);
 scene.add(statsGlowMesh);
 
 let settings;
 const gltfLoader2 = new GLTFLoader();
 gltfLoader2.load('gear.glb', (gltf2) => {
   settings = gltf2.scene;
-  gltf2.scene.position.set(-25, -12, 0);
+  gltf2.scene.position.set(-20, -10, 0);
   gltf2.scene.scale.set(2.5, 2.5, 2.5);
   gltf2.scene.rotation.x = .4;
   scene.add(gltf2.scene);
