@@ -132,8 +132,21 @@ light2.position.set(20, -5, 4);
 const ambience = new THREE.AmbientLight(0xffffff, .2)
 scene.add( light, light2, ambience)
 
-// const lightHelper = new THREE.PointLightHelper(light)
-// scene.add(lightHelper);
+let lightHelper; // define outside so we can add/remove
+
+document.getElementById('light-helper-toggle').addEventListener('change', function (e) {
+  if (e.target.checked) {
+    lightHelper = new THREE.PointLightHelper(light2);
+    scene.add(lightHelper);
+  } else {
+    if (lightHelper) {
+      scene.remove(lightHelper);
+      lightHelper.dispose(); // cleanup
+      lightHelper = null;
+    }
+  }
+});
+
 
 // const backgroundTexture = new THREE.TextureLoader().load('A$.png');
 // scene.background = backgroundTexture;
