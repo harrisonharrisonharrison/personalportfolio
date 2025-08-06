@@ -80,6 +80,7 @@ const mouse = new THREE.Vector2();
 //scroll animation
 canvas.addEventListener('wheel', (event) => {
     if (stats) {
-      
+      stats.rotation.y -= .005
+      statsGlowMesh.rotation.y -= .005;
     }
 });
