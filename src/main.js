@@ -147,11 +147,23 @@ document.getElementById('light-helper-toggle').addEventListener('change', functi
   }
 });
 
-
 // const backgroundTexture = new THREE.TextureLoader().load('A$.png');
 // scene.background = backgroundTexture;
 
-//const controls = new OrbitControls(camera, renderer.domElement);
+//orbit controls
+let controls;
+document.getElementById('controls-toggle').addEventListener('change', function (e) {
+  if (e.target.checked) {
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+  } else {
+    if (controls) {
+      controls.dispose();
+      controls = null;
+    }
+  }
+})
 
 const geometryB =  new THREE.SphereGeometry( 1, 12, 8 );
 const ghTexture = new THREE.TextureLoader().load("gh.png")
