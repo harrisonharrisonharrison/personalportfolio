@@ -75,6 +75,16 @@ statsGlowMesh.scale.setScalar(1.02);
 statsGlowMesh.position.set(20, -10, 0);
 scene.add(statsGlowMesh);
 
+//asteroid belt
+let asteroidBelt;
+const gltfLoader3 = new GLTFLoader();
+gltfLoader3.load('asteroid.glb', (gltf3) => {
+    asteroidBelt = gltf3.scene;
+    gltf3.scene.position.set(15, 0, -12);
+    gltf3.scene.scale.set(.8, .8, .8);
+    scene.add(gltf3.scene);
+  }
+)
 let settings;
 const gltfLoader2 = new GLTFLoader();
 gltfLoader2.load('gear.glb', (gltf2) => {
@@ -116,6 +126,17 @@ tween2.chain(tween);
 tween.start()
 
 const exclamation = new TWEEN.Group(tween,tween2);
+
+// let asteroids;
+// if ( asteroidBelt ) {
+//   const asteroidTween = new TWEEN.Tween({ yRotation: asteroidBelt.rotation.y })
+//     .to({yRotation:asteroidBelt.rotation.y+4},750)
+//     .onUpdate((coords) => {
+//       asteroidBelt.rotation.y = coords.yRotation;
+//   })
+//   asteroidTween.start()
+//   asteroids = new TWEEN.Group(asteroidTween);
+// }
 
 const markGeometry = new THREE.DodecahedronGeometry(1);
 const mark = new THREE.Mesh(markGeometry, cylinderMaterial);
@@ -249,6 +270,7 @@ function animate(){
     settings.rotation.y -= .005;
     settings.rotation.x -= .005;
   }
+  
   //light position and brightness update
   light2.position.set(lightPosition.x, lightPosition.y, lightPosition.z);
   light2.intensity = lightPosition.brightness;
@@ -280,6 +302,9 @@ function animate(){
 
 
   exclamation.update();
+  if (asteroids) {
+    asteroids.update();
+  }
 
   renderer.render(scene, camera);
 }
