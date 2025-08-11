@@ -82,7 +82,7 @@ gltfLoader3.load('asteroid.glb', (gltf3) => {
     asteroidBelt = gltf3.scene;
     gltf3.scene.position.set(15, 0, -12);
     gltf3.scene.scale.set(.8, .8, .8);
-    scene.add(gltf3.scene);
+    // scene.add(gltf3.scene);
   }
 )
 let settings;
