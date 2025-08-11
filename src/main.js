@@ -302,9 +302,6 @@ function animate(){
 
 
   exclamation.update();
-  // if (asteroids) {
-  //   asteroids.update();
-  // }
 
   renderer.render(scene, camera);
 }
