@@ -24,8 +24,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 camera.position.setZ(30);
 renderer.render( scene, camera );
 
-// const backgroundTexture = new THREE.TextureLoader().load('A$.png');
-// scene.background = backgroundTexture;
+const backgroundTexture = new THREE.TextureLoader().load('asteroidbelt.png');
+scene.background = backgroundTexture;
 
 //resize the canvas to fit the window
 function onWindowResize() {
