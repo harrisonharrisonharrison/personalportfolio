@@ -6,3 +6,5 @@ An interactive portfolio website
 
 ## Features 
 You can click on each of the orbiting moons, and the planets on the sides. 
+
+The settings planet has various camera and light controls.
