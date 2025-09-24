@@ -8,3 +8,5 @@ An interactive portfolio website
 You can click on each of the orbiting moons and the planets on the sides. 
 
 The settings planet has various camera and light controls.
+
+Statistics for visitors can also be viewed.
