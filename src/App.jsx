@@ -69,10 +69,12 @@ export default function App() {
     );
 
     tl.to(
-      textContainerRef.current,
+      ".hero-word",
       {
         x: "-100vw",
-        rotation: -15,
+        rotation: -15, 
+        opacity: 0, 
+        stagger: 0.02,
         ease: "power1.inOut",
       },
       0
