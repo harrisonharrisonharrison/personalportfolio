@@ -65,6 +65,16 @@
 body {
   background-color: black;
   margin: 0;
-  overflow-x: hidden;
+  padding: 0;
+  overflow-x: hidden !important;
   font-family: 'PPFraktionSans', sans-serif;
+}
+
+*::-webkit-scrollbar {
+  display: none; 
+}
+
+*{
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }

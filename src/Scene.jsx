@@ -1,11 +1,15 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Scene({ started }) {
     const modelGroupRef = useRef();
-  
-    // model slide from right
+    const groundRef = useRef();
+
+    // model slide from right / scroll anim
     useGSAP(() => {
       if (!started) return;
       gsap.from(modelGroupRef.current.position, {
@@ -13,7 +17,21 @@ export default function Scene({ started }) {
         duration: 1.5,
         ease: "power3.out",
       });
-    }, [started]);
+      
+      const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: document.body, 
+        start: "top top",
+        end: () => `+=${window.innerHeight}`, 
+        scrub: 1,
+      }
+    });
+
+    tl.to(modelGroupRef.current.position, { x: 15, ease: "power1.inOut" }, 0);
+    tl.to(modelGroupRef.current.rotation, { z: -5, y: -2, ease: "power1.inOut" }, 0);
+
+    tl.to(groundRef.current.position, { y: -100, ease: "power1.inOut" }, 0);
+  }, [started]);
   
     return (
       <>
@@ -29,7 +47,7 @@ export default function Scene({ started }) {
           </mesh>
         </group>
         {/* ground */}
-        <mesh position={[0, -18, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh ref={groundRef} position={[0, -18, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[100, 100]} />
           <meshStandardMaterial color="#d4af37" roughness={1} />
         </mesh>
