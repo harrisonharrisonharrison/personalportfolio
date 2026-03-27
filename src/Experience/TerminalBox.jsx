@@ -32,7 +32,7 @@ export default function TerminalBox({
   className = "",
   borders = ["top", "bottom", "left", "right"],
   gap = "0.85rem",
-  padding = "p-2 sm:p-6",
+  padding = "p-2 sm:p-3",
 }) {
   const has = (border) => borders.includes(border);
 
