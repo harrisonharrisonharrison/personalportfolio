@@ -8,6 +8,8 @@ import LoadingScreen from "./Loading.jsx";
 import Scene from "./Scene.jsx";
 import Navbar from "./Navbar.jsx";
 
+import Experience from "./Experience/Experience.jsx";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
@@ -19,8 +21,8 @@ export default function App() {
   const textContainerRef = useRef(null);
 
   useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
     window.scrollTo(0, 0);
   }, []);
@@ -72,8 +74,8 @@ export default function App() {
       ".hero-word",
       {
         x: "-100vw",
-        rotation: -15, 
-        opacity: 0, 
+        rotation: -15,
+        opacity: 0,
         stagger: 0.02,
         ease: "power1.inOut",
       },
@@ -92,7 +94,10 @@ export default function App() {
         <div className="sticky top-0 h-screen w-screen overflow-hidden">
           <Navbar />
 
-          <div ref={textContainerRef} className="absolute top-[45%] -translate-y-1/2 left-12 md:left-24 max-h-[50vh] max-w-[60vw] z-10">
+          <div
+            ref={textContainerRef}
+            className="absolute top-[45%] -translate-y-1/2 left-12 md:left-24 max-h-[50vh] max-w-[60vw] z-10"
+          >
             <div className="flex flex-wrap gap-x-3 gap-y-2 text-[7vh] font-fraktion-sans font-bold leading-normal">
               {words.map((word, index) => (
                 <div key={index} className="pt-2">
@@ -110,6 +115,8 @@ export default function App() {
             </Canvas>
           </div>
         </div>
+
+        <Experience />
       </div>
     </>
   );

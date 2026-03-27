@@ -16,7 +16,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="absolute top-0 w-full flex justify-between items-center px-12 py-8 z-20 text-lg">
+    <nav className="absolute top-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-20 text-xs sm:text-lg">
       <a
         className="font-bold cursor-pointer hover:opacity-75 transition-opacity"
         onClick={handleScrollToHome}
