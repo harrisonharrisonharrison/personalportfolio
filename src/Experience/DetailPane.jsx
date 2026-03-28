@@ -44,8 +44,8 @@ export default function DetailPane({ item }) {
   ));
 
   return (
-    <div className="w-full h-full flex flex-col min-h-0">
-      <div className="flex-1 overflow-y-auto no-scrollbar pr-4">
+    <div className="w-full h-full flex flex-col min-h-0 relative">
+      <div className="flex-1 overflow-y-auto no-scrollbar pr-4 pb-12">
         {item.imageShape === "wide" && (
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-[30%] flex flex-col gap-4 shrink-0">
@@ -104,6 +104,7 @@ export default function DetailPane({ item }) {
           </div>
         )}
       </div>
+      <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-black from-1% to-transparent pointer-events-none z-10" />
     </div>
   );
 }
