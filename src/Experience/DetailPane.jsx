@@ -68,7 +68,7 @@ export default function DetailPane({ item }) {
 
         {item.imageShape === "vertical" && (
           <div className="flex flex-row gap-4 h-full">
-            <div className="w-[20%] aspect-[9/16] border border-red-500/50 shrink-0 overflow-hidden bg-red-950/20">
+            <div className="w-[20%] aspect-9/16 border border-red-500/50 shrink-0 overflow-hidden bg-red-950/20">
               <img
                 src={item.picture}
                 alt={item.name}
