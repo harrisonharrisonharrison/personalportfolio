@@ -88,7 +88,7 @@ export default function App() {
       <LoadingScreen started={started} setStarted={setStarted} />
       <div
         ref={mainContainerRef}
-        className="relative w-full h-[200vh] text-white"
+        className="relative w-full h-[250vh] sm:h-[200vh] text-white"
         style={{ backgroundColor: "#6f0000" }}
       >
         <div className="sticky top-0 h-screen w-screen overflow-hidden">
