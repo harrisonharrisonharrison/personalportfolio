@@ -15,8 +15,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="bg-black text-red-500 px-8 pt-20 pb-2 h-screen overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm"
-    >
+      className="bg-black text-red-500 px-8 pt-20 pb-2 min-h-screen md:h-screen md:overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm"    >
       <Header />
       <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0">
         <About />

@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Navbar() {
   const handleScrollToExperience = (e) => {
     e.preventDefault();
@@ -15,6 +17,14 @@ export default function Navbar() {
     });
   };
 
+  const handleScrollToContact = () => {
+    const experienceSection = document.getElementById("experience");
+    if (experienceSection) {
+      experienceSection.scrollIntoView({ behavior: "smooth" });
+    }
+    window.dispatchEvent(new Event("highlightContact"));
+  };
+
   return (
     <nav className="absolute top-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-20 text-xs sm:text-lg">
       <a
@@ -23,17 +33,20 @@ export default function Navbar() {
       >
         harrison tran
       </a>
-      <div className="flex gap-8 font-fraktion-mono">
+      <div className="flex cursor-pointer gap-8 font-fraktion-mono">
         <a
           className="hover:text-red-300 transition-colors"
           onClick={handleScrollToExperience}
         >
           experience
         </a>
-        <a href="#resume" className="hover:text-red-300 transition-colors">
+        <a href="#resume" className="cursor-pointer hover:text-red-300 transition-colors">
           resume
         </a>
-        <a href="#contact" className="hover:text-red-300 transition-colors">
+        <a
+          className="cursor-pointer hover:text-red-300 transition-colors"
+          onClick={handleScrollToContact}
+        >
           contact
         </a>
       </div>
