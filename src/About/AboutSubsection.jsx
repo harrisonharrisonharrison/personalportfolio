@@ -13,7 +13,6 @@ function AboutSubSection({ title, children }) {
           {children}
         </div>
         
-        <div className="absolute bottom-0 left-0 w-full h-15 bg-linear-to-t from-black/80 to-transparent pointer-events-none z-10" />
       </div>
       
     </div>

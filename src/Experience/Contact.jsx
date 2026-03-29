@@ -32,7 +32,7 @@ export default function Contact() {
         <div className="w-full md:w-[23%] flex shrink-0">
           <span 
             className={`transition-colors duration-300 ${
-              isPulsating ? "text-green-500 animate-pulse" : "text-white"
+              isPulsating ? "text-green-500 animate-pulse text-3xl" : "text-white"
             }`}
           >
             CONTACT

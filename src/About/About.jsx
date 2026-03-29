@@ -46,7 +46,7 @@ const hobbiesData = [
 
 export default function About() {
   return (
-    <TerminalBox className="w-full md:w-[23%] flex flex-col shrink-0 max-h-[50vh] md:max-h-none">
+    <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full">
       <AboutSubSection title="ABOUT">
         <p className="mb-4 font-fraktion-sans">
           I'm a full stack developer at UCI catering a variety of projects to a

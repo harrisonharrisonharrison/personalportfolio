@@ -15,14 +15,15 @@ export default function SplitSection({
 
   return (
     <div
-      className={`flex gap-0 transition-all duration-500 ease-in-out ${
-        isMinimized ? "shrink-0" : "flex-1 min-h-0"
+      className={`flex gap-0 w-full transition-all duration-500 ease-in-out ${
+        isMinimized ? "shrink-0" : "flex-1 min-h-0 h-full"
       }`}
     >
-      {" "}
       <TerminalBox
         borders={["top", "bottom", "left", "right"]}
-        className="w-[30%] flex flex-col"
+        className={`w-[30%] flex flex-col transition-all duration-500 ${
+          isMinimized ? "" : "h-full"
+        }`}
       >
         <div
           className={`flex justify-between items-center border-b-2 opacity-50 shrink-0 uppercase transition-all ${
@@ -116,7 +117,9 @@ export default function SplitSection({
       </TerminalBox>
       <TerminalBox
         borders={["top", "bottom", "right"]}
-        className="w-[70%] flex flex-col"
+        className={`w-[70%] flex flex-col transition-all duration-500 ${
+          isMinimized ? "" : "h-full"
+        }`}
       >
         <div className="flex justify-between items-center border-b-2 opacity-50 mb-4 tracking-widest shrink-0">
           <h2>{titleRight}</h2>
