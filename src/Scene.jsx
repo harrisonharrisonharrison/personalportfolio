@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import * as THREE from "three";
+import { useRef, useEffect, useMemo } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGLTF } from "@react-three/drei";
+import { Center, OrbitControls, useGLTF, useTexture } from "@react-three/drei";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,8 +11,33 @@ export default function Scene({ started }) {
   const modelGroupRef = useRef();
   const groundRef = useRef();
 
-  // Load the desert model
   const { scene: desertScene } = useGLTF("/models/desert.glb");
+  const { scene: pedestalScene} = useGLTF("/models/pedestal.glb");
+
+  const textures = useTexture({
+    map: "/textures/stone.png",
+  });
+
+  useEffect(() => {
+    Object.values(textures).forEach((texture) => {
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(6, 2); 
+    });
+  }, [textures]);
+
+  const texturedPedestalScene = useMemo(() => pedestalScene.clone(), [pedestalScene]);
+
+  useEffect(() => {
+    texturedPedestalScene.traverse((child) => {
+      if (child.isMesh) {
+        child.material = new THREE.MeshStandardMaterial({
+          map: textures.map,
+          metalness: 0.1,
+        });
+      }
+    });
+  }, [texturedPedestalScene, textures]);
 
   // model slide from right / scroll anim
   useGSAP(() => {
@@ -39,26 +65,28 @@ export default function Scene({ started }) {
   
   return (
     <>
-      {/* Restored floating sphere and cylinder */}
+      {/* <OrbitControls />
+      <gridHelper args={[100, 100]} position={[0, -18, 0]} />
+      <axesHelper args={[50]} /> */}
+
       <group ref={modelGroupRef} position={[5, -2, 0]}>
         <mesh position={[0, 3, 0]}>
           <sphereGeometry args={[1.5, 32, 32]} />
-          <meshStandardMaterial color="#cccccc" roughness={0.4} />
+          <meshStandardMaterial color="#FFFFFF" roughness={0.4} />
         </mesh>
 
-        <mesh position={[0, -1.5, 0]}>
-          <cylinderGeometry args={[2.2, 1.4, 4, 32]} />
-          <meshStandardMaterial color="#e5e5e5" roughness={0.8} />
-        </mesh>
+        <Center position={[-0.4, -2.5, 0]}>
+          <primitive object={texturedPedestalScene} rotation={[0, .15, -.05]} scale={[.5, .5, .5]} />
+        </Center>
       </group>
 
-      {/* Replaced plane with the desert model */}
       <group ref={groundRef} position={[0, -15, 0]}>
         <primitive object={desertScene} scale={[60, 50, 50]} />
       </group>
     </>
   );
 }
+useTexture.preload("/textures/stone.png");
 
-// Preload for performance
+useGLTF.preload("/models/pedestal.glb");
 useGLTF.preload("/models/desert.glb");

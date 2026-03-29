@@ -111,6 +111,7 @@ export default function App() {
             <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
               <ambientLight intensity={0.6} />
               <directionalLight position={[10, 10, 5]} intensity={1.5} />
+              <directionalLight position={[0, 1, 5]} color="#ffcccc" intensity={0.8} />
               <Scene started={started} />
             </Canvas>
           </div>
