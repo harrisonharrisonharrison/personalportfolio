@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { organizationsData } from "../assets/organizations";
-import { projectsData } from "../assets/projects";
+import { organizationsData } from "../assets/data/organizations";
+import { projectsData } from "../assets/data/projects";
 
 import SplitSection from "./SplitSection";
 import Contact from "./Contact";

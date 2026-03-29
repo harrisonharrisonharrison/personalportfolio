@@ -33,7 +33,7 @@ export default function SplitSection({
           <h2 className="tracking-widest">{titleLeft}</h2>
           <button
             onClick={onToggleMinimize}
-            className="hover:text-white transition-colors cursor-pointer p-1"
+            className="hover:text-yellow-400 text-white transition-colors cursor-pointer p-1"
             title={isMinimized ? "Expand" : "Minimize"}
           >
             {isMinimized ? (
