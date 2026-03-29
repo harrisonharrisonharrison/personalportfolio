@@ -47,44 +47,55 @@ const hobbiesData = [
 export default function About() {
   return (
     <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full">
-      <AboutSubSection title="ABOUT">
-        <p className="mb-4 font-fraktion-sans">
-          I'm a full stack developer at UCI catering a variety of projects to a
-          variety of users. It's important that my projects develop my
-          understanding of code, people, or even life in some way.
-        </p>
-        <p className="mb-4 font-fraktion-sans">
-          I put an emphasis on collaboration to make the best work possible,
-          whether that be through working together, teaching someone else, or
-          being mentored.
-        </p>
-        <p className="last:mb-0 font-fraktion-sans">Feel free to reach out.</p>
-      </AboutSubSection>
+      <div className="relative flex-1 min-h-0">
+        <div className="overflow-y-auto h-full no-scrollbar pb-12">
+          <AboutSubSection title="ABOUT">
+            <p className="mb-4 font-fraktion-sans">
+              I'm a full stack developer at UCI catering a variety of projects
+              to a variety of users. It's important that my projects develop my
+              understanding of code, people, or even life in some way.
+            </p>
+            <p className="mb-4 font-fraktion-sans">
+              I put an emphasis on collaboration to make the best work possible,
+              whether that be through working together, teaching someone else,
+              or being mentored.
+            </p>
+            <p className="last:mb-0 font-fraktion-sans">
+              Feel free to reach out.
+            </p>
+          </AboutSubSection>
 
-      <AboutSubSection title="SKILLS">
-        <div className="flex flex-col gap-2">
-          {skillsData.map((skill) => (
-            <HoverSkill
-              key={skill.main}
-              mainSkill={skill.main}
-              subSkills={skill.sub}
-            />
-          ))}
-        </div>
-      </AboutSubSection>
-
-      <AboutSubSection title="HOBBIES">
-        <div className="flex flex-col gap-2 font-fraktion-sans">
-          {hobbiesData.map((hobby) => (
-            <div key={hobby} className="flex items-center gap-2 group min-h-0">
-              <span className="text-xs sm:text-base leading-none">
-                {"> "}
-                {hobby}
-              </span>
+          <AboutSubSection title="SKILLS">
+            <div className="flex flex-col gap-2">
+              {skillsData.map((skill) => (
+                <HoverSkill
+                  key={skill.main}
+                  mainSkill={skill.main}
+                  subSkills={skill.sub}
+                />
+              ))}
             </div>
-          ))}
+          </AboutSubSection>
+
+          <AboutSubSection title="HOBBIES">
+            <div className="flex flex-col gap-2 font-fraktion-sans">
+              {hobbiesData.map((hobby) => (
+                <div
+                  key={hobby}
+                  className="flex items-center gap-2 group min-h-0"
+                >
+                  <span className="text-xs sm:text-base leading-none">
+                    {"> "}
+                    {hobby}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </AboutSubSection>
         </div>
-      </AboutSubSection>
+
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-black to-transparent pointer-events-none z-10" />
+      </div>
     </TerminalBox>
   );
 }
