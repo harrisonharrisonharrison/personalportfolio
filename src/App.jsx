@@ -88,15 +88,14 @@ export default function App() {
       <LoadingScreen started={started} setStarted={setStarted} />
       <div
         ref={mainContainerRef}
-        className="relative w-full h-[250vh] sm:h-[200vh] text-white"
-        style={{ backgroundColor: "#6f0000" }}
+        className="relative w-full h-[250vh] sm:h-[200vh] text-white bg-linear-to-b from-[#570000]/30 to-[#000000]"
       >
         <div className="sticky top-0 h-screen w-screen overflow-hidden">
           <Navbar />
 
           <div
             ref={textContainerRef}
-            className="absolute top-[45%] -translate-y-1/2 left-12 md:left-24 max-h-[50vh] max-w-[60vw] z-10"
+            className="absolute top-[45%] -translate-y-1/2 left-12 md:left-24 max-h-[50vh] max-w-[60vw] z-10 pointer-events-none"
           >
             <div className="flex flex-wrap gap-x-3 gap-y-2 text-[7vh] font-fraktion-sans font-bold leading-normal">
               {words.map((word, index) => (

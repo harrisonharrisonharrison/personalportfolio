@@ -2,8 +2,9 @@ import * as THREE from "three";
 import { useRef, useEffect, useMemo } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Center, OrbitControls, useGLTF, useTexture } from "@react-three/drei";
+import HeadScene from "./HeadScene";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function Scene({ started }) {
   const groundRef = useRef();
 
   const { scene: desertScene } = useGLTF("/models/desert.glb");
-  const { scene: pedestalScene} = useGLTF("/models/pedestal.glb");
+  const { scene: pedestalScene } = useGLTF("/models/pedestal.glb");
 
   const textures = useTexture({
     map: "/textures/stone.png",
@@ -22,11 +23,14 @@ export default function Scene({ started }) {
     Object.values(textures).forEach((texture) => {
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
-      texture.repeat.set(6, 2); 
+      texture.repeat.set(6, 2);
     });
   }, [textures]);
 
-  const texturedPedestalScene = useMemo(() => pedestalScene.clone(), [pedestalScene]);
+  const texturedPedestalScene = useMemo(
+    () => pedestalScene.clone(),
+    [pedestalScene],
+  );
 
   useEffect(() => {
     texturedPedestalScene.traverse((child) => {
@@ -47,36 +51,39 @@ export default function Scene({ started }) {
       duration: 1.5,
       ease: "power3.out",
     });
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: document.body, 
+        trigger: document.body,
         start: "top top",
-        end: () => `+=${window.innerHeight}`, 
+        end: () => `+=${window.innerHeight}`,
         scrub: 1,
-      }
+      },
     });
 
     tl.to(modelGroupRef.current.position, { x: 15, ease: "power1.inOut" }, 0);
-    tl.to(modelGroupRef.current.rotation, { z: -5, y: -2, ease: "power1.inOut" }, 0);
+    tl.to(
+      modelGroupRef.current.rotation,
+      { z: -5, y: -2, ease: "power1.inOut" },
+      0,
+    );
 
     tl.to(groundRef.current.position, { y: -100, ease: "power1.inOut" }, 0);
   }, [started]);
-  
+
   return (
     <>
-      {/* <OrbitControls />
-      <gridHelper args={[100, 100]} position={[0, -18, 0]} />
-      <axesHelper args={[50]} /> */}
-
       <group ref={modelGroupRef} position={[5, -2, 0]}>
-        <mesh position={[0, 3, 0]}>
-          <sphereGeometry args={[1.5, 32, 32]} />
-          <meshStandardMaterial color="#FFFFFF" roughness={0.4} />
-        </mesh>
+        <group position={[0, 3, 0]}>
+          <HeadScene scale={2.5} />
+        </group>
 
         <Center position={[-0.4, -2.5, 0]}>
-          <primitive object={texturedPedestalScene} rotation={[0, .15, -.05]} scale={[.5, .5, .5]} />
+          <primitive
+            object={texturedPedestalScene}
+            rotation={[0, 0.15, -0.05]}
+            scale={[0.5, 0.5, 0.5]}
+          />
         </Center>
       </group>
 
