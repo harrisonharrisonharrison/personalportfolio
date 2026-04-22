@@ -36,10 +36,13 @@ export default function HeadScene(props) {
     const targetX = (deltaX * Math.PI) / 4;
     const targetY = (deltaY * Math.PI) / 4;
 
+    const eyeTargetX = targetX < 0 ? targetX * 0.5 : targetX;
+    const headTargetX = targetX < 0 ? targetX / 1.5 : targetX / 3;
+
     if (leftEyeRef.current && rightEyeRef.current) {
       leftEyeRef.current.rotation.y = THREE.MathUtils.lerp(
         leftEyeRef.current.rotation.y,
-        targetX,
+        eyeTargetX,
         0.1
       );
       leftEyeRef.current.rotation.x = THREE.MathUtils.lerp(
@@ -50,7 +53,7 @@ export default function HeadScene(props) {
 
       rightEyeRef.current.rotation.y = THREE.MathUtils.lerp(
         rightEyeRef.current.rotation.y,
-        targetX,
+        eyeTargetX,
         0.1
       );
       rightEyeRef.current.rotation.x = THREE.MathUtils.lerp(
@@ -63,7 +66,7 @@ export default function HeadScene(props) {
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
-        (targetX / 2) - 2,
+        headTargetX - 2,
         0.05
       );
 
