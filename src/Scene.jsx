@@ -75,7 +75,7 @@ export default function Scene({ started }) {
     <>
       <group ref={modelGroupRef} position={[5, -2, 0]}>
         <group position={[0, 3, 0]}>
-          <HeadScene scale={2.5} />
+          <HeadScene scale={4} />
         </group>
 
         <Center position={[-0.4, -2.5, 0]}>
