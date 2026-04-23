@@ -10,11 +10,11 @@ const skillsData = [
   },
   {
     main: "Backend Development",
-    sub: ["Node.js", "Express.js", "MongoDB", "SQL", "Docker", "Nginx"],
+    sub: ["Node.js", "Express.js", "SQL"],
   },
   {
     main: "General Programming",
-    sub: ["Python", "C++", "Java", "Go", "Git"],
+    sub: ["Python", "C++", "Java", "Git"],
   },
   {
     main: "UI/UX Design",
@@ -22,7 +22,7 @@ const skillsData = [
   },
   {
     main: "Game Design",
-    sub: ["Unity", "Godot", "Storytelling", "Mechanics"],
+    sub: ["Godot", "Storytelling", "Mechanics"],
   },
   {
     main: "Collaboration",
@@ -30,7 +30,7 @@ const skillsData = [
   },
   {
     main: "Laughing",
-    sub: ["Lollygagginf", "Teeheeing"],
+    sub: ["Lollygagging", "Teeheeing"],
   },
 ];
 

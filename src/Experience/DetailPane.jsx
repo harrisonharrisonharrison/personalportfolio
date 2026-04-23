@@ -13,6 +13,9 @@ const badgeColors = {
   Blender: "text-[#EA7600] border-[#EA7600]",
   Audacity: "text-[#0000CC] border-[#0000CC]",
   Godot: "text-[#478CBF] border-[#478CBF]",
+  Supabase: "text-[#3ECF8E] border-[#3ECF8E]",
+  Docker: "text-[#2496ED] border-[#2496ED]",
+  "C#": "text-[#512BD4] border-[#512BD4]",
 };
 
 function Badge({ children }) {
@@ -69,7 +72,7 @@ export default function DetailPane({ item }) {
           </div>
 
           {/* Right Column: Abstract */}
-          <div className="flex-1 max-h-[300px] md:max-h-[450px] overflow-y-auto pr-4 custom-scrollbar">
+          <div className="flex-1 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
             {formattedAbstract}
           </div>
           
@@ -86,7 +89,7 @@ export default function DetailPane({ item }) {
               {item.gallery.map((photoUrl, idx) => (
                 <div 
                   key={idx} 
-                  className="w-full aspect-video border border-red-500/40 overflow-hidden bg-red-950/20"
+                  className="w-full border border-red-500/40 overflow-hidden bg-red-950/20"
                 >
                   <img
                     src={photoUrl}

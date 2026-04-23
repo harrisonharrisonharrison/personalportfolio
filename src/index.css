@@ -72,6 +72,10 @@
   70% { opacity: 0.5; }
   100% { opacity: 1; }
 }
+.custom-scrollbar {
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(239, 68, 68, 0.5) rgba(69, 10, 10, 0.2);
+}
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
@@ -103,11 +107,7 @@ body {
   font-family: 'PPFraktionSans', sans-serif;
 }
 
-*::-webkit-scrollbar {
-  display: none; 
-}
-
-*{
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
+* {
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(239, 68, 68, 0.5) rgba(69, 10, 10, 0.2);
 }
