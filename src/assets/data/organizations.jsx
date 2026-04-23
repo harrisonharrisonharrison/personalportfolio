@@ -8,7 +8,7 @@ export const organizationsData = [
       imageShape: "wide",
       tags: ["React", "ExpressJS", "AWS S3", "PostgreSQL", "Firebase"],
       abstract:
-        "Commit the Change (CTC) is a collaborative development team that specializes in building software for nonprofit organizations.\n\nI am currently working on a management dashboard for Global Creation Foundation, a nonprofit focused on arts education in underserved communities that has reached 300+ students across 5 continents.\n\nI've integrated media uploads through AWS S3 buckets, created reusable ExpressJS routes, and much more through working with a 14 person Agile Scrum team. ",
+        "Commit the Change (CTC) is a collaborative development team that specializes in building software for nonprofit organizations.\n\nI am currently working on a management dashboard for Global Creation Foundation, a nonprofit focused on arts education in underserved communities that has reached 300+ students across 5 continents.\n\nI've integrated media uploads through AWS S3 buckets, created reusable ExpressJS routes, and much more through working with a 14 person Agile Scrum team.",
     },
     {
       id: "fusion",
@@ -19,7 +19,7 @@ export const organizationsData = [
       imageShape: "square",
       tags: ["React", "Supabase"],
       abstract:
-        "Commit the Change (CTC) is a collaborative development team that specializes in building software for nonprofit organizations.\n\nI am currently working on a management dashboard for Global Creation Foundation, a nonprofit focused on arts education in underserved communities that has reached 300+ students across 5 continents.\n\nI've integrated media uploads through AWS S3 buckets, created reusable ExpressJS routes, and much more through working with a 14 person Agile Scrum team. ",
+        "The FUSION ICS Project (FIP) is a hackathon-style project that focuses on creating software solutions for the Filipino community. \n\nI am currently working on PinoyPort, a platform that connects Filipino freelancers with clients around the world. \n\nI've implemented user authentication and profile management using Supabase, designed a responsive UI with React, and collaborated with a team of 5 to ensure a smooth development process.",
     },
     {
       id: "zotbins",
