@@ -8,7 +8,8 @@ export const organizationsData = [
       imageShape: "wide",
       tags: ["React", "ExpressJS", "AWS S3", "PostgreSQL", "Firebase"],
       abstract:
-        "Commit the Change (CTC) is a collaborative development team that specializes in building software for nonprofit organizations.\n\nI am currently working on a management dashboard for Global Creation Foundation, a nonprofit focused on arts education in underserved communities that has reached 300+ students across 5 continents.\n\nI've integrated media uploads through AWS S3 buckets, created reusable ExpressJS routes, and much more through working with a 14 person Agile Scrum team.",
+      "Commit the Change (CTC) is a collaborative development team that specializes in building software for nonprofit organizations.\n\nI am currently working on a management dashboard for Global Creation Foundation, a nonprofit focused on arts education in underserved communities that has reached 300+ students across 5 continents.\n\nI've integrated media uploads through AWS S3 buckets, created reusable ExpressJS routes, and much more through working with a 14 person Agile Scrum team. ",
+      gallery: ["/gallery/login.png"],
     },
     {
       id: "fusion",
