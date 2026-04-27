@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Center, OrbitControls, useGLTF, useTexture } from "@react-three/drei";
 import HeadScene from "./HeadScene";
+import { Stars } from "@react-three/drei";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,6 +90,15 @@ export default function Scene({ started }) {
 
       <group ref={groundRef} position={[0, -15, 0]}>
         <primitive object={desertScene} scale={[60, 50, 50]} />
+        <Stars
+          radius={100} // Radius of the inner sphere (default=100)
+          depth={25} // Depth of area where stars should fit (default=25)
+          count={5000} // Amount of stars (default=5000)
+          factor={4} // Size factor (default=4)
+          saturation={0} // Saturation 0 = pure white stars
+          fade // Faded dots (default=false)
+          speed={1} // Speed of the slight rotation
+        />
       </group>
     </>
   );
