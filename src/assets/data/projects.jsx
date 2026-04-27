@@ -52,8 +52,9 @@ export const projectsData = [
       type: "?",
       picture: "/page.png",
       imageShape: "wide",
-      tags: ["Tailwind", "React", "Figma"],
+      tags: ["Tailwind", "React", "Figma", "Blender"],
       abstract:
-        "This website is important to me because it was a chance for me to express all the parts of myself that I couldn't really show in a resume or other projects. My process involved sitting down and forcing myself to design the whole site from the ground up in Figma, drawing inspiration from other portfolio sites like blakehicks.com and Studio Freight. I used AI tools to help translate these designs into React and Tailwind. My other attempts at portfolio websites had a lack of UX and I tried to focus on that with this website, so I made sure all interactions made sense by asking other people about their opinions as well.",
+        "This website is important to me because it was a chance for me to express all the parts of myself that I couldn't really show in a resume or other projects.\n\nMy process involved sitting down and forcing myself to design the whole site from the ground up in Figma, drawing inspiration from other portfolio sites like blakehicks.com and Studio Freight. I used AI tools to help translate these designs into React and Tailwind.\n\nMy other attempts at portfolio websites had a lack of consideration for UX and I tried to focus on that with this website, so I made sure all interactions made sense by asking other people about their opinions as well.",
+      gallery: ["/gallery/portfolio/front.png", "/gallery/portfolio/model.png", "/gallery/portfolio/scroll.png"],
     },
   ];

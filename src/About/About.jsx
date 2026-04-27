@@ -50,18 +50,14 @@ export default function About() {
       <div className="relative flex-1 min-h-0">
         <div className="overflow-y-auto h-full no-scrollbar pb-12">
           <AboutSubSection title="ABOUT">
-            <p className="mb-4 font-fraktion-sans">
-              I'm a full stack developer at UCI catering a variety of projects
-              to a variety of users. It's important that my projects develop my
-              understanding of code, people, or even life in some way.
+            <p className="mb-4 text-lg font-fraktion-sans">
+              I'm a full stack developer at UCI, and this is my personal website/portfolio.
             </p>
-            <p className="mb-4 font-fraktion-sans">
-              I put an emphasis on collaboration to make the best work possible,
-              whether that be through working together, teaching someone else,
-              or being mentored.
+            <p className="mb-4 text-lg font-fraktion-sans">
+              In my free time, I like to lift, play video games, loredrop, play guitar, and listen to music. I like all genres of music, but my favorites are rnb, prog rock, and indie. 
             </p>
-            <p className="last:mb-0 font-fraktion-sans">
-              Feel free to reach out.
+            <p className="last:mb-0 text-lg font-fraktion-sans">
+              I really like meeting new people, so feel free to talk to me!
             </p>
           </AboutSubSection>
 
