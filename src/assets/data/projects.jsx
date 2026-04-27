@@ -42,7 +42,8 @@ export const projectsData = [
       imageShape: "wide",
       tags: ["Supabase", "React", "Figma"],
       abstract:
-        "This is an example of a vertical image layout where the badges run down the middle column and the text sits on the far right. Notice how the grid completely morphs to accommodate the mobile aspect ratio!",
+        "FU Stamps is a modern web platform replacing easily lost physical stamp cards with an application, the platform provides members with a seamless and reliable way to log their attendance, track their earned stamps, and stay motivated.\n\nCollaborating closely within a team of four developers, I helped architect this full-stack solution utilizing Next.js and Supabase. My core contributions included implementing a robust, secure login system utilizing JWT authentication in TypeScript, ensuring that user data, attendance logs, and reward progress remain strictly protected.",
+      gallery: ["/gallery/stamps/reg.png", "/gallery/stamps/stamp.png", "/gallery/stamps/404.png"],
     },
     {
       id: "portfolio",
@@ -53,6 +54,6 @@ export const projectsData = [
       imageShape: "wide",
       tags: ["Tailwind", "React", "Figma"],
       abstract:
-        "This is an example of a vertical image layout where the badges run down the middle column and the text sits on the far right. Notice how the grid completely morphs to accommodate the mobile aspect ratio!",
+        "This website is important to me because it was a chance for me to express all the parts of myself that I couldn't really show in a resume or other projects. My process involved sitting down and forcing myself to design the whole site from the ground up in Figma, drawing inspiration from other portfolio sites like blakehicks.com and Studio Freight. I used AI tools to help translate these designs into React and Tailwind. My other attempts at portfolio websites had a lack of UX and I tried to focus on that with this website, so I made sure all interactions made sense by asking other people about their opinions as well.",
     },
   ];
