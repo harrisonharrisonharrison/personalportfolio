@@ -44,7 +44,7 @@ const hobbiesData = [
   "Instagram Reels",
 ];
 
-export default function About() {
+export default function About({ isOverride }) {
   return (
     <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full">
       <div className="relative flex-1 min-h-0">
@@ -90,7 +90,9 @@ export default function About() {
           </AboutSubSection>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-black to-transparent pointer-events-none z-10" />
+        {!isOverride && (
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-linear-to-t from-black to-transparent pointer-events-none z-10" />
+        )}
       </div>
     </TerminalBox>
   );

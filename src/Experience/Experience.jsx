@@ -7,16 +7,20 @@ import SplitSection from "./SplitSection";
 import Contact from "./Contact";
 import About from "../About/About";
 import Header from "./Header";
-import FlickerReveal from "./Flicker"; // Import the new wrapper!
+import FlickerReveal from "./Flicker";
 
 export default function Experience() {
   const [orgsMinimized, setOrgsMinimized] = useState(false);
   const [projMinimized, setProjMinimized] = useState(false);
+  
+  const [isOverride, setIsOverride] = useState(false);
 
   return (
     <section
       id="experience"
-      className="bg-black text-red-500 px-8 pt-20 pb-2 min-h-screen md:h-screen md:overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm"
+      className={`${
+        isOverride ? "bg-blue-900 text-white" : "bg-black text-red-500"
+      } px-8 pt-20 pb-2 min-h-screen md:h-screen md:overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm transition-colors duration-700`}
     >
       <FlickerReveal delay={0}>
         <Header />
@@ -27,18 +31,25 @@ export default function Experience() {
           delay={200}
           className="w-full md:w-[23%] flex flex-col shrink-0 min-h-0"
         >
-          <About />
+          <About isOverride={isOverride} />
         </FlickerReveal>
 
         <div
-          className={`absolute flex justify-center w-full bottom-[20%] cursor-pointer transition-all duration-700 delay-200 ${
+          className={`absolute flex justify-center w-full bottom-[20%] cursor-pointer transition-all duration-700 delay-200 z-10 ${
             orgsMinimized && projMinimized
               ? "opacity-100 scale-100"
-              : "opacity-0 scale-90"
+              : "opacity-0 scale-90 pointer-events-none"
           }`}
         >
-          <button className="px-6 py-3 border border-red-500 bg-red-950/20 pointer-cursor text-red-500 hover:bg-red-500 hover:text-black transition-colors font-bold tracking-widest uppercase animate-pulse">
-            [ SYSTEM OVERRIDE ]
+          <button 
+            onClick={() => setIsOverride(!isOverride)}
+            className={`px-6 py-3 border pointer-cursor transition-colors font-bold tracking-widest uppercase animate-pulse ${
+              isOverride 
+                ? "border-white bg-white/20 text-white hover:bg-white hover:text-blue-900" 
+                : "border-red-500 bg-red-950/20 text-red-500 hover:bg-red-500 hover:text-black"
+            }`}
+          >
+            [ {isOverride ? "RESTORE SYSTEM" : "SYSTEM OVERRIDE"} ]
           </button>
         </div>
 
@@ -55,6 +66,7 @@ export default function Experience() {
               items={organizationsData}
               isMinimized={orgsMinimized}
               onToggleMinimize={() => setOrgsMinimized(!orgsMinimized)}
+              isOverride={isOverride}
             />
           </FlickerReveal>
 
@@ -70,6 +82,7 @@ export default function Experience() {
               items={projectsData}
               isMinimized={projMinimized}
               onToggleMinimize={() => setProjMinimized(!projMinimized)}
+              isOverride={isOverride}
             />
           </FlickerReveal>
         </div>

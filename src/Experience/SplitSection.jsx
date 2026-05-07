@@ -8,6 +8,7 @@ export default function SplitSection({
   items,
   isMinimized,
   onToggleMinimize,
+  isOverride
 }) {
   const [activeItem, setActiveItem] = useState(
     items && items.length > 0 ? items[0] : null
@@ -136,7 +137,7 @@ export default function SplitSection({
         </div>
         {!isMinimized && (
           <div className="overflow-y-auto flex-1 no-scrollbar min-h-0">
-            <DetailPane item={activeItem} />
+            <DetailPane item={activeItem} isOverride={isOverride} />
           </div>
         )}
       </TerminalBox>

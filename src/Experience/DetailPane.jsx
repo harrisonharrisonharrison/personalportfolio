@@ -30,7 +30,7 @@ function Badge({ children }) {
   );
 }
 
-export default function DetailPane({ item }) {
+export default function DetailPane({ item, isOverride }) {
   if (!item)
     return (
       <div className="opacity-50 text-sm h-full flex items-center justify-center">
@@ -105,7 +105,9 @@ export default function DetailPane({ item }) {
       </div>
       
       {/* Bottom Fade Gradient */}
-      <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black from-1% to-transparent pointer-events-none z-10" />
+      {!isOverride && (
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black from-1% to-transparent pointer-events-none z-10" />
+      )}
     </div>
   );
 }
