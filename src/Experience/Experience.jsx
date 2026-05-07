@@ -31,7 +31,7 @@ export default function Experience() {
         </FlickerReveal>
 
         <div
-          className={`absolute flex justify-center w-full bottom-[20%] cursor-pointer transition-all duration-700 delay-200 pointer-events-none ${
+          className={`absolute flex justify-center w-full bottom-[20%] cursor-pointer transition-all duration-700 delay-200 ${
             orgsMinimized && projMinimized
               ? "opacity-100 scale-100"
               : "opacity-0 scale-90"

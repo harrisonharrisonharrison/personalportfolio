@@ -40,9 +40,16 @@ export default function Navbar() {
         >
           experience
         </a>
-        <a href="#resume" className="cursor-pointer hover:text-red-300 transition-colors">
+        
+        <a 
+          href="/harrison-tran-resume.pdf" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="cursor-pointer hover:text-red-300 transition-colors"
+        >
           resume
         </a>
+
         <a
           className="cursor-pointer hover:text-red-300 transition-colors"
           onClick={handleScrollToContact}
