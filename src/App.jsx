@@ -14,11 +14,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [started, setStarted] = useState(false);
+  const [isOverride, setIsOverride] = useState(false);
+
   const heroText =
     "Hello! I'm Harrison, and I'm currently studying computer science at UCI. I love sinking my time into developing full stack apps with other people.";
   const words = heroText.split(" ");
+  
   const mainContainerRef = useRef(null);
   const textContainerRef = useRef(null);
+  const bgOverlayRef = useRef(null);
 
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
@@ -39,7 +43,6 @@ export default function App() {
     };
   }, [started]);
 
-  // word/scroll anim
   useGSAP(() => {
     if (!started) return;
 
@@ -62,9 +65,9 @@ export default function App() {
     });
 
     tl.to(
-      mainContainerRef.current,
+      bgOverlayRef.current,
       {
-        backgroundColor: "#000000",
+        opacity: 1, 
         ease: "none",
       },
       0
@@ -81,16 +84,26 @@ export default function App() {
       },
       0
     );
-  }, [started]);
-
+  }, [started]); 
   return (
     <>
       <LoadingScreen started={started} setStarted={setStarted} />
       <div
         ref={mainContainerRef}
-        className="relative w-full h-[250vh] sm:h-[200vh] text-white bg-linear-to-b from-[#570000]/30 to-[#000000]"
+        className={`relative w-full h-[250vh] sm:h-[200vh] text-white transition-colors duration-1000 ${
+          isOverride
+            ? "bg-linear-to-b from-cyan-500 via-blue-900 to-cyan-300"
+            : "bg-linear-to-b from-[#570000]/30 to-[#000000]"
+        }`}
       >
-        <div className="sticky top-0 h-screen w-screen overflow-hidden">
+        <div
+          ref={bgOverlayRef}
+          className={`absolute inset-0 w-full h-full pointer-events-none transition-colors duration-1000 z-0 opacity-0 ${
+            isOverride ? "bg-blue-900" : "bg-black"
+          }`}
+        />
+
+        <div className="sticky top-0 h-screen w-screen overflow-hidden z-10">
           <Navbar />
 
           <div
@@ -116,7 +129,10 @@ export default function App() {
           </div>
         </div>
 
-        <Experience />
+        {/* Added relative z-10 so Experience also sits on top of the overlay */}
+        <div className="relative z-10">
+          <Experience isOverride={isOverride} setIsOverride={setIsOverride} />
+        </div>
       </div>
     </>
   );

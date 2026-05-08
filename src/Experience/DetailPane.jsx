@@ -41,7 +41,9 @@ export default function DetailPane({ item, isOverride }) {
   const formattedAbstract = item.abstract.split("\n").map((paragraph, idx) => (
     <p
       key={idx}
-      className="mb-4 last:mb-0 text-xs sm:text-base leading-relaxed tracking-wide font-fraktion-sans"
+      className={`mb-4 last:mb-0 text-xs sm:text-base leading-relaxed tracking-wide font-fraktion-sans ${
+        isOverride ? "text-white" : ""
+      }`}
     >
       {paragraph}
     </p>
@@ -49,14 +51,16 @@ export default function DetailPane({ item, isOverride }) {
 
   return (
     <div className="w-full h-full flex flex-col min-h-0 relative">
-      <div className="flex-1 overflow-y-auto no-scrollbar pr-4 pb-12">
+      <div className={`flex-1 overflow-y-auto pr-4 pb-12 ${
+        isOverride ? "custom-scrollbar-green" : "custom-scrollbar"
+      }`}>
         
         {/* --- MAIN SECTION --- */}
         <div className="flex flex-col md:flex-row gap-6 mb-10">
           
           {/* Left Column: Picture & Badges */}
           <div className="w-full md:w-[35%] lg:w-[30%] flex flex-col gap-4 shrink-0">
-            <div className="w-full aspect-square border border-red-500/50 overflow-hidden bg-red-950/20">
+            <div className={`w-full aspect-square overflow-hidden bg-red-950/20 ${isOverride ? "border border-white/50" : "border border-red-500/50"}`}>
               <img
                 src={item.picture}
                 alt={item.name}
@@ -72,7 +76,9 @@ export default function DetailPane({ item, isOverride }) {
           </div>
 
           {/* Right Column: Abstract */}
-          <div className="flex-1 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
+          <div className={`flex-1 max-h-[300px] overflow-y-auto pr-4 ${
+            isOverride ? "custom-scrollbar-green" : "custom-scrollbar"
+          }`}>
             {formattedAbstract}
           </div>
           
@@ -80,8 +86,8 @@ export default function DetailPane({ item, isOverride }) {
 
         {/* --- GALLERY SECTION --- */}
         {item.gallery && item.gallery.length > 0 && (
-          <div className="flex flex-col gap-4 border-t border-red-500/30 pt-6">
-            <h3 className="text-red-500 text-xs sm:text-sm tracking-widest opacity-80">
+          <div className={`flex flex-col gap-4 border-t border-red-500/30 pt-6 ${isOverride ? "border-white/30" : ""}`}>
+            <h3 className={`text-red-500 text-xs sm:text-sm tracking-widest opacity-80 ${isOverride ? "text-white" : ""}`}>
               [ GALLERY ]
             </h3>
             
@@ -89,7 +95,7 @@ export default function DetailPane({ item, isOverride }) {
               {item.gallery.map((photoUrl, idx) => (
                 <div 
                   key={idx} 
-                  className="w-full border border-red-500/40 overflow-hidden bg-red-950/20"
+                  className={`w-full overflow-hidden bg-red-950/20 ${isOverride ? "border border-white/40" : "border border-red-500/40"}`}
                 >
                   <img
                     src={photoUrl}

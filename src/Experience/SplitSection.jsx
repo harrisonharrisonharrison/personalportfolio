@@ -25,13 +25,16 @@ export default function SplitSection({
         className={`w-[30%] flex flex-col transition-all duration-500 ${
           isMinimized ? "" : "h-full"
         }`}
+        isOverride={isOverride}
       >
         <div
           className={`flex justify-between items-center border-b-2 opacity-50 shrink-0 uppercase transition-all ${
-            isMinimized ? "" : "border-b-2 border-red-500/30 pb-2 mb-2"
+            isMinimized
+              ? ""
+              : `border-b-2 ${isOverride ? "border-white/20" : "border-red-500/30"} pb-2 mb-2`
           }`}
         >
-          <h2 className="tracking-widest">{titleLeft}</h2>
+          <h2 className={`tracking-widest ${isOverride ? "text-white" : ""}`}>{titleLeft}</h2>
           <button
             onClick={onToggleMinimize}
             className="hover:text-yellow-400 text-white transition-colors cursor-pointer p-1"
@@ -69,21 +72,24 @@ export default function SplitSection({
           </button>
         </div>
         {!isMinimized && (
-          <div className="overflow-y-auto flex-1 no-scrollbar min-h-0 pr-4 relative">
+          <div className={`overflow-y-auto flex-1 min-h-0 pr-4 relative ${isOverride ? "custom-scrollbar-green" : "custom-scrollbar"}`}>
             <div className="flex flex-col h-full pb-12">
               {items?.map((item) => {
                 const isActive = activeItem?.id === item.id;
                 return (
                   <div
                     key={item.id}
-                    className="border-b border-red-500/30 last:border-none py-1"
+                    className={`border-b ${isOverride ? "border-white/20" : "border-red-500/30"} last:border-none py-1`}
                   >
                     <div
                       onMouseEnter={() => setActiveItem(item)}
-                      className={`cursor-pointer transition-all duration-200 flex items-center justify-between py-1 uppercase 
-                      ${
+                      className={`cursor-pointer transition-all duration-200 flex items-center justify-between py-1 uppercase ${
                         isActive
-                          ? "text-neutral-300"
+                          ? isOverride
+                            ? "text-white"
+                            : "text-neutral-300"
+                          : isOverride
+                          ? "text-white hover:text-lime-300"
                           : "text-red-500 hover:text-red-400"
                       }`}
                     >
@@ -105,7 +111,7 @@ export default function SplitSection({
                         </span>
                       </div>
 
-                      <span className="text-[10px] opacity-50 tracking-widest shrink-0">
+                      <span className={`text-[10px] opacity-50 tracking-widest shrink-0 ${isOverride ? "text-white/70" : ""}`}>
                         {item.type}
                       </span>
                     </div>
@@ -121,9 +127,10 @@ export default function SplitSection({
         className={`w-[70%] flex flex-col transition-all duration-500 ${
           isMinimized ? "" : "h-full"
         }`}
+        isOverride={isOverride}
       >
-        <div className="flex justify-between items-center border-b-2 opacity-50 mb-4 tracking-widest shrink-0">
-          <h2>{titleRight}</h2>
+        <div className={`flex justify-between items-center border-b-2 opacity-50 mb-4 tracking-widest shrink-0 ${isOverride ? "border-white/20" : ""}`}>
+          <h2 className={isOverride ? "text-white" : ""}>{titleRight}</h2>
           {!isMinimized && activeItem?.site && (
             <a
               href={activeItem.site}

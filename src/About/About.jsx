@@ -46,9 +46,9 @@ const hobbiesData = [
 
 export default function About({ isOverride }) {
   return (
-    <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full">
+    <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full" isOverride={isOverride}>
       <div className="relative flex-1 min-h-0">
-        <div className="overflow-y-auto h-full no-scrollbar pb-12">
+        <div className={`overflow-y-auto h-full pb-12 ${isOverride ? "custom-scrollbar-green" : "custom-scrollbar"}`}>
           <AboutSubSection title="ABOUT">
             <p className="mb-4 text-lg font-fraktion-sans">
               I'm a full stack developer at UCI, and this is my personal website/portfolio.
@@ -68,6 +68,7 @@ export default function About({ isOverride }) {
                   key={skill.main}
                   mainSkill={skill.main}
                   subSkills={skill.sub}
+                  isOverride={isOverride}
                 />
               ))}
             </div>

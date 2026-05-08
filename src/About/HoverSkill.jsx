@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import TerminalBox from "../Experience/TerminalBox";
 
-export default function HoverSkill({ mainSkill, subSkills }) {
+export default function HoverSkill({ mainSkill, subSkills, isOverride }) {
   const [isHovered, setIsHovered] = useState(false);
   const [renderData, setRenderData] = useState({
     offset: 0,
@@ -47,13 +47,13 @@ export default function HoverSkill({ mainSkill, subSkills }) {
       onMouseLeave={handleMouseLeave}
       onWheel={handleMouseLeave}
     >
-      <span className="text-xs sm:text-xl leading-none text-red-500 transition-colors">
+      <span className={`text-xs sm:text-xl leading-none transition-colors ${isOverride ? "text-white" : "text-red-500"}`}>
         {">"}
       </span>
 
       <span
         ref={textRef}
-        className="text-xs sm:text-base leading-none hover:text-white transition-colors tracking-wide"
+        className={`text-xs sm:text-base leading-none transition-colors tracking-wide ${isOverride ? "text-white" : "text-neutral-200"}`}
       >
         {mainSkill}
       </span>
@@ -78,7 +78,7 @@ export default function HoverSkill({ mainSkill, subSkills }) {
                 strokeWidth="1.5"
                 fill="none"
                 strokeDasharray="4,4"
-                className="text-red-500/50 animate-line-drawing"
+                className={`${isOverride ? "text-lime-400/50" : "text-red-500/50"} animate-line-drawing`}
               />
             </svg>
 
@@ -93,7 +93,8 @@ export default function HoverSkill({ mainSkill, subSkills }) {
               <TerminalBox
                 borders={["top", "bottom", "left", "right"]}
                 padding="p-3"
-                className="w-40 sm:w-48 bg-black/95 backdrop-blur-sm"
+                className={`w-40 sm:w-48 ${isOverride ? "bg-sky-500/10" : "bg-black/95 backdrop-blur-sm"}`}
+                isOverride={isOverride}
               >
                 <div className="flex flex-col gap-1.5">
                   {subSkills.map((subSkill) => (
@@ -101,8 +102,8 @@ export default function HoverSkill({ mainSkill, subSkills }) {
                       key={subSkill}
                       className="flex items-center gap-2 uppercase"
                     >
-                      <span className="text-lg leading-none opacity-50">{">"}</span>
-                      <span className="text-xs sm:text-sm text-red-500">
+                      <span className={`text-lg leading-none opacity-50 ${isOverride ? "text-white" : ""}`}>{">"}</span>
+                      <span className={`text-xs sm:text-sm ${isOverride ? "text-white" : "text-red-500"}`}>
                         {subSkill}
                       </span>
                     </div>

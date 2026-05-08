@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TerminalBox from "./TerminalBox";
 
-export default function Contact() {
+export default function Contact({ isOverride }) {
   const [showJoke, setShowJoke] = useState(false);
   const [isPulsating, setIsPulsating] = useState(false);
 
@@ -27,12 +27,16 @@ export default function Contact() {
   }, []);
 
   return (
-    <TerminalBox borders={["top"]} padding="py-4" className="mt-2 shrink-0">
+    <TerminalBox borders={["top"]} padding="py-4" className="mt-2 shrink-0" isOverride={isOverride}>
       <div className="flex flex-col md:flex-row gap-6 w-full">
         <div className="w-full md:w-[23%] flex shrink-0">
           <span 
             className={`transition-colors duration-300 ${
-              isPulsating ? "text-green-500 animate-pulse text-3xl" : "text-white"
+              isPulsating
+                ? "text-green-500 animate-pulse text-3xl"
+                : isOverride
+                ? "text-white"
+                : "text-white"
             }`}
           >
             CONTACT
@@ -53,7 +57,11 @@ export default function Contact() {
               <span 
                 onClick={() => setShowJoke(true)}
                 className={`transition-colors ${
-                  showJoke ? "text-blue-500 font-bold" : "hover:text-white cursor-pointer"
+                  showJoke
+                    ? isOverride
+                      ? "text-white font-bold"
+                      : "text-blue-500 font-bold"
+                    : "hover:text-white cursor-pointer"
                 }`}
               >
                 {showJoke ? "JUST KIDDING." : "HOME ADDRESS"}

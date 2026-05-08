@@ -6,7 +6,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default function Header() {
+export default function Header( { isOverride } ) {
   const [visitorCount, setVisitorCount] = useState(null);
   const hasFetched = useRef(false);
 
@@ -32,6 +32,7 @@ export default function Header() {
     <TerminalBox
       padding="py-2"
       className="text-center text-xl font-bold font-fraktion-sans tracking-widest shrink-0"
+      isOverride={isOverride}
     >
       YOU ARE VISITOR #{visitorCount === null ? "..." : visitorCount}.
     </TerminalBox>

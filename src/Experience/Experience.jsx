@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { organizationsData } from "../assets/data/organizations";
 import { projectsData } from "../assets/data/projects";
@@ -9,11 +9,18 @@ import About from "../About/About";
 import Header from "./Header";
 import FlickerReveal from "./Flicker";
 
-export default function Experience() {
+export default function Experience({ isOverride, setIsOverride }) {
   const [orgsMinimized, setOrgsMinimized] = useState(false);
   const [projMinimized, setProjMinimized] = useState(false);
   
-  const [isOverride, setIsOverride] = useState(false);
+  useEffect(() => {
+    document.body.classList.toggle("override-active", isOverride);
+    window.dispatchEvent(
+      new CustomEvent("systemOverrideChanged", {
+        detail: { isOverride },
+      })
+    );
+  }, [isOverride]);
 
   return (
     <section
@@ -23,7 +30,7 @@ export default function Experience() {
       } px-8 pt-20 pb-2 min-h-screen md:h-screen md:overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm transition-colors duration-700`}
     >
       <FlickerReveal delay={0}>
-        <Header />
+        <Header isOverride={isOverride} />
       </FlickerReveal>
 
       <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0">
@@ -89,7 +96,7 @@ export default function Experience() {
       </div>
 
       <FlickerReveal delay={800}>
-        <Contact />
+        <Contact isOverride={isOverride} />
       </FlickerReveal>
     </section>
   );
