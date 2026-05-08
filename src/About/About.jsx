@@ -49,7 +49,7 @@ export default function About({ isOverride }) {
     <TerminalBox className="w-full flex flex-col shrink-0 max-h-[50vh] md:max-h-full" isOverride={isOverride}>
       <div className="relative flex-1 min-h-0">
         <div className={`overflow-y-auto h-full pb-12 ${isOverride ? "custom-scrollbar-green" : "custom-scrollbar"}`}>
-          <AboutSubSection title="ABOUT">
+          <AboutSubSection title="ABOUT" isOverride={isOverride}>
             <p className="mb-4 text-lg font-fraktion-sans">
               I'm a full stack developer at UCI, and this is my personal website/portfolio.
             </p>
@@ -61,7 +61,7 @@ export default function About({ isOverride }) {
             </p>
           </AboutSubSection>
 
-          <AboutSubSection title="SKILLS">
+          <AboutSubSection title="SKILLS" isOverride={isOverride}>
             <div className="flex flex-col gap-2">
               {skillsData.map((skill) => (
                 <HoverSkill
@@ -74,7 +74,7 @@ export default function About({ isOverride }) {
             </div>
           </AboutSubSection>
 
-          <AboutSubSection title="HOBBIES">
+          <AboutSubSection title="HOBBIES" isOverride={isOverride}>
             <div className="flex flex-col gap-2 font-fraktion-sans">
               {hobbiesData.map((hobby) => (
                 <div
