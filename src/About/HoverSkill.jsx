@@ -53,7 +53,7 @@ export default function HoverSkill({ mainSkill, subSkills, isOverride }) {
 
       <span
         ref={textRef}
-        className={`text-xs sm:text-base leading-none transition-colors tracking-wide ${isOverride ? "text-white" : "text-neutral-200"}`}
+        className={`text-xs sm:text-base leading-none transition-colors tracking-wide ${isOverride ? "text-white" : "text-red-500"}`}
       >
         {mainSkill}
       </span>

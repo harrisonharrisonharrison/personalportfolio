@@ -62,6 +62,7 @@ export default function DetailPane({ item, isOverride }) {
           <div className="w-full md:w-[35%] lg:w-[30%] flex flex-col gap-4 shrink-0">
             <div className={`w-full aspect-square overflow-hidden bg-red-950/20 ${isOverride ? "border border-white/50" : "border border-red-500/50"}`}>
               <img
+                key={item.picture}
                 src={item.picture}
                 alt={item.name}
                 className="object-contain w-full h-full opacity-80"
@@ -94,10 +95,11 @@ export default function DetailPane({ item, isOverride }) {
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
               {item.gallery.map((photoUrl, idx) => (
                 <div 
-                  key={idx} 
+                  key={`${item.name}-gallery-${idx}`} 
                   className={`w-full overflow-hidden bg-red-950/20 ${isOverride ? "border border-white/40" : "border border-red-500/40"}`}
                 >
                   <img
+                    key={photoUrl} 
                     src={photoUrl}
                     alt={`${item.name} gallery image ${idx + 1}`}
                     className="object-cover w-full h-full opacity-70 hover:opacity-100 transition-opacity duration-300"
