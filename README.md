@@ -1,12 +1,16 @@
-<img width="1440" height="723" alt="Screenshot 2025-08-15 at 7 15 53 PM" src="https://github.com/user-attachments/assets/4fe61858-57d9-4030-b058-c8e915a14899" />
+# React + Vite
 
-# My personal portfolio!
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-An interactive portfolio website
+Currently, two official plugins are available:
 
-## Features 
-You can click on each of the orbiting moons and the planets on the sides. 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-The settings planet has various camera and light controls.
+## React Compiler
 
-Statistics for visitors can also be viewed.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
