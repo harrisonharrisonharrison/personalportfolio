@@ -18,7 +18,8 @@ export default function SplitSection({
 
   return (
     <div
-      className={`flex gap-0 w-full transition-all duration-500 ease-in-out ${
+      onClick={onToggleMinimize} 
+      className={`flex gap-0 w-full transition-all duration-500 ease-in-out cursor-pointer group ${
         isMinimized ? "shrink-0" : "flex-1 min-h-0 h-full"
       }`}
     >
@@ -41,9 +42,9 @@ export default function SplitSection({
           <h2 className={`tracking-widest ${isOverride ? "text-white" : ""}`}>
             {titleLeft}
           </h2>
-          <button
-            onClick={onToggleMinimize}
-            className="hover:text-yellow-400 text-white transition-colors cursor-pointer p-1"
+          
+          <div
+            className="text-white/50 group-hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] scale-100 group-hover:scale-110 transition-all duration-300 p-1"
             title={isMinimized ? "Expand" : "Minimize"}
           >
             {isMinimized ? (
@@ -75,11 +76,13 @@ export default function SplitSection({
                 />
               </svg>
             )}
-          </button>
+          </div>
         </div>
+        
         {!isMinimized && (
           <div
-            className={`overflow-y-auto flex-1 min-h-0 pr-4 relative ${
+            onClick={(e) => e.stopPropagation()} 
+            className={`overflow-y-auto flex-1 min-h-0 pr-4 relative cursor-default ${
               isOverride ? "custom-scrollbar-green" : "custom-scrollbar"
             }`}
           >
@@ -157,14 +160,18 @@ export default function SplitSection({
               href={activeItem.site}
               target="_blank"
               rel="noreferrer"
-              className="cursor-pointer hover:text-white transition-colors shrink-0"
+              onClick={(e) => e.stopPropagation()} 
+              className="cursor-pointer hover:text-white transition-colors shrink-0 z-20"
             >
               SITE ↗
             </a>
           )}
         </div>
         {!isMinimized && (
-          <div className="overflow-y-auto flex-1 no-scrollbar min-h-0">
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="overflow-y-auto flex-1 no-scrollbar min-h-0 cursor-default"
+          >
             <DetailPane item={activeItem} isOverride={isOverride} />
           </div>
         )}

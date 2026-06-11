@@ -11,7 +11,7 @@ import FlickerReveal from "./Flicker";
 
 export default function Experience({ isOverride, setIsOverride }) {
   const [orgsMinimized, setOrgsMinimized] = useState(false);
-  const [projMinimized, setProjMinimized] = useState(false);
+  const [projMinimized, setProjMinimized] = useState(true);
   
   useEffect(() => {
     document.body.classList.toggle("override-active", isOverride);
