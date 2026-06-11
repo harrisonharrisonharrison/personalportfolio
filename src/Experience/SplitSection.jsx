@@ -8,7 +8,9 @@ export default function SplitSection({
   items,
   isMinimized,
   onToggleMinimize,
-  isOverride
+  isOverride,
+  bordersLeft = ["top", "bottom", "left", "right"],
+  bordersRight = ["top", "bottom", "right"],
 }) {
   const [activeItem, setActiveItem] = useState(
     items && items.length > 0 ? items[0] : null
@@ -16,12 +18,13 @@ export default function SplitSection({
 
   return (
     <div
-      className={`flex gap-0 w-full transition-all duration-500 ease-in-out ${
+      onClick={onToggleMinimize} 
+      className={`flex gap-0 w-full transition-all duration-500 ease-in-out cursor-pointer group ${
         isMinimized ? "shrink-0" : "flex-1 min-h-0 h-full"
       }`}
     >
       <TerminalBox
-        borders={["top", "bottom", "left", "right"]}
+        borders={bordersLeft}
         className={`w-[30%] flex flex-col transition-all duration-500 ${
           isMinimized ? "" : "h-full"
         }`}
@@ -31,13 +34,17 @@ export default function SplitSection({
           className={`flex justify-between items-center border-b-2 opacity-50 shrink-0 uppercase transition-all ${
             isMinimized
               ? ""
-              : `border-b-2 ${isOverride ? "border-white/20" : "border-red-500/30"} pb-2 mb-2`
+              : `border-b-2 ${
+                  isOverride ? "border-white/20" : "border-red-500/30"
+                } pb-2 mb-2`
           }`}
         >
-          <h2 className={`tracking-widest ${isOverride ? "text-white" : ""}`}>{titleLeft}</h2>
-          <button
-            onClick={onToggleMinimize}
-            className="hover:text-yellow-400 text-white transition-colors cursor-pointer p-1"
+          <h2 className={`tracking-widest ${isOverride ? "text-white" : ""}`}>
+            {titleLeft}
+          </h2>
+          
+          <div
+            className="text-white/50 group-hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] scale-100 group-hover:scale-110 transition-all duration-300 p-1"
             title={isMinimized ? "Expand" : "Minimize"}
           >
             {isMinimized ? (
@@ -69,17 +76,25 @@ export default function SplitSection({
                 />
               </svg>
             )}
-          </button>
+          </div>
         </div>
+        
         {!isMinimized && (
-          <div className={`overflow-y-auto flex-1 min-h-0 pr-4 relative ${isOverride ? "custom-scrollbar-green" : "custom-scrollbar"}`}>
+          <div
+            onClick={(e) => e.stopPropagation()} 
+            className={`overflow-y-auto flex-1 min-h-0 pr-4 relative cursor-default ${
+              isOverride ? "custom-scrollbar-green" : "custom-scrollbar"
+            }`}
+          >
             <div className="flex flex-col h-full pb-12">
               {items?.map((item) => {
                 const isActive = activeItem?.id === item.id;
                 return (
                   <div
                     key={item.id}
-                    className={`border-b ${isOverride ? "border-white/20" : "border-red-500/30"} last:border-none py-1`}
+                    className={`border-b ${
+                      isOverride ? "border-white/20" : "border-red-500/30"
+                    } last:border-none py-1`}
                   >
                     <div
                       onMouseEnter={() => setActiveItem(item)}
@@ -111,7 +126,11 @@ export default function SplitSection({
                         </span>
                       </div>
 
-                      <span className={`text-[10px] opacity-50 tracking-widest shrink-0 ${isOverride ? "text-white/70" : ""}`}>
+                      <span
+                        className={`text-[10px] opacity-50 tracking-widest shrink-0 ${
+                          isOverride ? "text-white/70" : ""
+                        }`}
+                      >
                         {item.type}
                       </span>
                     </div>
@@ -122,28 +141,37 @@ export default function SplitSection({
           </div>
         )}
       </TerminalBox>
+
       <TerminalBox
-        borders={["top", "bottom", "right"]}
+        borders={bordersRight}
         className={`w-[70%] flex flex-col transition-all duration-500 ${
           isMinimized ? "" : "h-full"
         }`}
         isOverride={isOverride}
       >
-        <div className={`flex justify-between items-center border-b-2 opacity-50 mb-4 tracking-widest shrink-0 ${isOverride ? "border-white/20" : ""}`}>
+        <div
+          className={`flex justify-between items-center border-b-2 opacity-50 mb-4 tracking-widest shrink-0 ${
+            isOverride ? "border-white/20" : ""
+          }`}
+        >
           <h2 className={isOverride ? "text-white" : ""}>{titleRight}</h2>
           {!isMinimized && activeItem?.site && (
             <a
               href={activeItem.site}
               target="_blank"
               rel="noreferrer"
-              className="cursor-pointer hover:text-white transition-colors shrink-0"
+              onClick={(e) => e.stopPropagation()} 
+              className="cursor-pointer hover:text-white transition-colors shrink-0 z-20"
             >
               SITE ↗
             </a>
           )}
         </div>
         {!isMinimized && (
-          <div className="overflow-y-auto flex-1 no-scrollbar min-h-0">
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="overflow-y-auto flex-1 no-scrollbar min-h-0 cursor-default"
+          >
             <DetailPane item={activeItem} isOverride={isOverride} />
           </div>
         )}

@@ -11,7 +11,7 @@ import FlickerReveal from "./Flicker";
 
 export default function Experience({ isOverride, setIsOverride }) {
   const [orgsMinimized, setOrgsMinimized] = useState(false);
-  const [projMinimized, setProjMinimized] = useState(false);
+  const [projMinimized, setProjMinimized] = useState(true);
   
   useEffect(() => {
     document.body.classList.toggle("override-active", isOverride);
@@ -60,7 +60,7 @@ export default function Experience({ isOverride, setIsOverride }) {
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col gap-6 min-h-0">
+        <div className="flex-1 flex flex-col gap-0 min-h-0">
           <FlickerReveal
             delay={400}
             className={`flex flex-col min-h-0 transition-all duration-500 ${
@@ -74,6 +74,8 @@ export default function Experience({ isOverride, setIsOverride }) {
               isMinimized={orgsMinimized}
               onToggleMinimize={() => setOrgsMinimized(!orgsMinimized)}
               isOverride={isOverride}
+              bordersLeft={["top", "bottom", "left", "right"]}
+              bordersRight={["top", "bottom", "right"]}
             />
           </FlickerReveal>
 
@@ -90,6 +92,8 @@ export default function Experience({ isOverride, setIsOverride }) {
               isMinimized={projMinimized}
               onToggleMinimize={() => setProjMinimized(!projMinimized)}
               isOverride={isOverride}
+              bordersLeft={["bottom", "left", "right"]}
+              bordersRight={["bottom", "right"]}
             />
           </FlickerReveal>
         </div>
