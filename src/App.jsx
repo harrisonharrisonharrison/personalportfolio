@@ -84,7 +84,8 @@ export default function App() {
       },
       0
     );
-  }, [started]); 
+  }, [started]);
+  
   return (
     <>
       <LoadingScreen started={started} setStarted={setStarted} />
