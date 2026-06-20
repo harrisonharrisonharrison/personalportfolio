@@ -1,46 +1,60 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { Resend } from "https://esm.sh/resend@3.2.0";
 
-// Setup type definitions for built-in Supabase Runtime APIs
-import "@supabase/functions-js/edge-runtime.d.ts";
-import { withSupabase } from "@supabase/server";
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
-console.log("Hello from Functions!");
+serve(async (req) => {
+  try {
+    const payload = await req.json();
 
-// This endpoint uses 'publishable' | 'secret' access, apiKey is required.
-// Use publishable for Client-facing, key-validated endpoints
-// Use secret for Server-to-server, internal calls
-export default {
-  fetch: withSupabase({ auth: ["publishable", "secret"] }, async (req, ctx) => {
-    // Called by another service with a secret key
-    // ctx.supabaseAdmin bypasses RLS — use for privileged operations
-    /*
-    if (ctx.authMode === "secret") {
-      const { user_id } = await req.json();
-      const { data } = await ctx.supabaseAdmin.auth.admin.getUserById(user_id);
+    const visitor = payload.record;
 
-      return Response.json({
-        email: data?.user?.email,
-      });
-    }
-    */
-
-    const { name } = await req.json();
-
-    return Response.json({
-      message: `Hello ${name}!`,
+    const { data, error } = await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: "harrisontran357@gmail.com",
+      subject: `[ALERT] New Visitor from ${visitor.city || "Unknown"}`,
+      html: `
+        <div style="font-family: 'Courier New', Courier, monospace; max-width: 600px; margin: 0 auto; padding: 24px; background-color: #0a0a0a; color: #e5e5e5; border: 1px solid #262626; border-radius: 8px;">
+          
+          <h2 style="color: #ef4444; border-bottom: 1px solid #262626; padding-bottom: 12px; margin-top: 0; font-weight: normal; letter-spacing: 1px;">
+            SYSTEM_ALERT: NEW_VISITOR
+          </h2>
+          
+          <div style="padding: 10px 0;">
+            <p style="margin: 12px 0; font-size: 15px;">
+              <span style="color: #737373; display: inline-block; width: 100px;">LOCATION:</span> 
+              <strong style="color: #ffffff; font-weight: normal;">[ ${visitor.city || "Unknown"}, ${visitor.region || "Unknown"}, ${visitor.country || "Unknown"} ]</strong>
+            </p>
+            
+            <p style="margin: 12px 0; font-size: 15px;">
+              <span style="color: #737373; display: inline-block; width: 100px;">SOURCE:</span> 
+              <strong style="color: #a3e635; font-weight: normal;">${visitor.referrer || "Direct Link / Bookmark"}</strong>
+            </p>
+            
+            <p style="margin: 12px 0; font-size: 15px;">
+              <span style="color: #737373; display: inline-block; width: 100px;">IP_ADDRESS:</span> 
+              <strong style="color: #ffffff; font-weight: normal;">${visitor.ip_address || "Unknown"}</strong>
+            </p>
+          </div>
+          
+          <div style="margin-top: 32px; font-size: 12px; color: #525252; border-top: 1px solid #262626; padding-top: 16px;">
+            This is an automated notification from your Supabase Edge Function.
+          </div>
+          
+        </div>
+      `,
     });
-  }),
-};
 
-/* To invoke locally:
+    if (error) throw error;
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/email-notification' \
-    --header 'apiKey: sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH' \
-    --data '{"name":"Functions"}'
-
-*/
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { "Content-Type": "application/json" },
+      status: 400,
+    });
+  }
+});
