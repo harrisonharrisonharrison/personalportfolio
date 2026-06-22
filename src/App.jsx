@@ -88,6 +88,13 @@ export default function App() {
   
   return (
     <>
+      <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black text-white portrait:flex landscape:hidden md:!hidden p-8 text-center">
+        <svg className="w-16 h-16 mb-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+        <h2 className="text-xl font-bold font-fraktion-sans tracking-widest uppercase">Please rotate your device</h2>
+        <p className="mt-2 text-white/70">This experience is designed for landscape viewing.</p>
+      </div>
       <LoadingScreen started={started} setStarted={setStarted} />
       <div
         ref={mainContainerRef}
