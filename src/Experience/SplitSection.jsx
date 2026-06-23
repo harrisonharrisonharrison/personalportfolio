@@ -44,7 +44,7 @@ export default function SplitSection({
           </h2>
           
           <div
-            className="text-white/50 group-hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] scale-100 group-hover:scale-110 transition-all duration-300 p-1"
+            className="text-white animate-pulse group-hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] scale-100 group-hover:scale-110 transition-all duration-300 p-1"
             title={isMinimized ? "Expand" : "Minimize"}
           >
             {isMinimized ? (
