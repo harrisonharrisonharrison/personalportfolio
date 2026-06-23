@@ -15,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [started, setStarted] = useState(false);
   const [isOverride, setIsOverride] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1440);
 
@@ -128,7 +129,7 @@ export default function App() {
             : "bg-linear-to-b from-[#570000]/30 to-[#000000]"
         }`}
       >
-        <Navbar />
+        <Navbar isMobile={isMobile} showContactModal={showContactModal} setShowContactModal={setShowContactModal} />
 
         <div
           ref={bgOverlayRef}
