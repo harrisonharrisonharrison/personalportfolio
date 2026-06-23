@@ -39,7 +39,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="absolute top-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-20 text-xs sm:text-lg">
+    <nav className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-[9999] text-xs sm:text-lg pointer-events-auto">
       <a
         className={`font-bold cursor-pointer hover:opacity-75 transition-opacity ${isOverride ? "text-white" : ""}`}
         onClick={handleScrollToHome}
