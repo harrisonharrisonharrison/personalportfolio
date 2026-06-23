@@ -5,8 +5,18 @@ import * as THREE from "three";
 
 const worldPos = new THREE.Vector3();
 
-export default function HeadScene(props) {
-  const { nodes, materials } = useGLTF("/models/head.glb");
+export default function HeadScene({ isMobile, ...props }) {
+  const modelPath = isMobile ? "/models/head-v1.glb" : "/models/head.glb";
+
+  useEffect(() => {
+    if (isMobile) {
+      useGLTF.preload("/models/head-v1.glb");
+    } else {
+      useGLTF.preload("/models/head.glb");
+    }
+  }, [isMobile]);
+
+  const { nodes, materials } = useGLTF(modelPath);
 
   const groupRef = useRef();
   const headMeshRef = useRef();
@@ -17,7 +27,8 @@ export default function HeadScene(props) {
   const isBlinking = useRef(false);
 
   useEffect(() => {
-    const headMat = materials["tripo_material_977df2c5-a0f7-485a-a642-e0a100e62825"];
+    const headMat =
+      materials["tripo_material_977df2c5-a0f7-485a-a642-e0a100e62825"];
     if (headMat) {
       headMat.emissive = new THREE.Color("#ffffff");
       headMat.emissiveIntensity = 0.04;
@@ -43,23 +54,23 @@ export default function HeadScene(props) {
       leftEyeRef.current.rotation.y = THREE.MathUtils.lerp(
         leftEyeRef.current.rotation.y,
         eyeTargetX,
-        0.1
+        0.1,
       );
       leftEyeRef.current.rotation.x = THREE.MathUtils.lerp(
         leftEyeRef.current.rotation.x,
         -targetY,
-        0.1
+        0.1,
       );
 
       rightEyeRef.current.rotation.y = THREE.MathUtils.lerp(
         rightEyeRef.current.rotation.y,
         eyeTargetX,
-        0.1
+        0.1,
       );
       rightEyeRef.current.rotation.x = THREE.MathUtils.lerp(
         rightEyeRef.current.rotation.x,
         -targetY,
-        0.1
+        0.1,
       );
     }
 
@@ -67,13 +78,13 @@ export default function HeadScene(props) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
         headTargetX - 2,
-        0.05
+        0.05,
       );
 
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
         -targetY / 4,
-        0.05
+        0.05,
       );
     }
 
@@ -110,64 +121,127 @@ export default function HeadScene(props) {
   return (
     <group ref={groupRef} rotation={[0, -0.5, 0]} {...props} dispose={null}>
       <pointLight position={[0, 0, 2]} intensity={10} distance={5} />
-      
+
       <mesh
         ref={headMeshRef}
         name="HeadMesh"
         castShadow
         receiveShadow
-        geometry={nodes.HeadMesh.geometry}
-        material={materials["tripo_material_977df2c5-a0f7-485a-a642-e0a100e62825"]}
-        morphTargetDictionary={nodes.HeadMesh.morphTargetDictionary}
-        morphTargetInfluences={nodes.HeadMesh.morphTargetInfluences}
+        geometry={nodes.HeadMesh?.geometry}
+        material={
+          materials["tripo_material_977df2c5-a0f7-485a-a642-e0a100e62825"]
+        }
+        morphTargetDictionary={nodes.HeadMesh?.morphTargetDictionary}
+        morphTargetInfluences={nodes.HeadMesh?.morphTargetInfluences}
         position={[0, 0, 0.009]}
+        scale={isMobile ? 0.5 : 1}
       />
 
+      {/* Right Eye */}
       <group position={[0.263, -0.001, 0.117]}>
         <group ref={rightEyeRef}>
           <group rotation={[-Math.PI, 1.539, -Math.PI]} scale={0.049}>
             <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Eye_Material001_0.geometry}
-                material={materials["Material.002"]}
-                rotation={[-Math.PI / 2, 0, 0]}
-                scale={100}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.EyeGlass_Material002_0.geometry}
-                material={materials["Material.003"]}
-                rotation={[-Math.PI / 2, 0, 0]}
-                scale={101.294}
-              />
+              {isMobile ? (
+                // MOBILE v1 STRUCTURE
+                <>
+                  <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
+                    <mesh
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.Eye_Material001_0?.geometry}
+                      material={materials["Material.002"]}
+                      position={[0, 0, -0.019]}
+                      scale={0.987}
+                    />
+                  </group>
+                  <group rotation={[-Math.PI / 2, 0, 0]} scale={101.294}>
+                    <mesh
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.EyeGlass_Material002_0?.geometry}
+                      material={materials["Material.003"]}
+                      position={[0, 0, 0.009]}
+                      scale={1.007}
+                    />
+                  </group>
+                </>
+              ) : (
+                // DESKTOP STRUCTURE
+                <>
+                  <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Eye_Material001_0?.geometry}
+                    material={materials["Material.002"]}
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    scale={100}
+                  />
+                  <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.EyeGlass_Material002_0?.geometry}
+                    material={materials["Material.003"]}
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    scale={101.294}
+                  />
+                </>
+              )}
             </group>
           </group>
         </group>
       </group>
 
+      {/* Left Eye */}
       <group position={[0.263, -0.001, -0.118]}>
         <group ref={leftEyeRef}>
           <group rotation={[-Math.PI, 1.539, -Math.PI]} scale={0.049}>
             <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Eye_Material001_0001.geometry}
-                material={materials["Material.005"]}
-                rotation={[-Math.PI / 2, 0, 0]}
-                scale={100}
-              />
-              <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.EyeGlass_Material002_0001.geometry}
-                material={materials["Material.004"]}
-                rotation={[-Math.PI / 2, 0, 0]}
-                scale={101.294}
-              />
+              {isMobile ? (
+                // MOBILE v1 STRUCTURE
+                <>
+                  <group rotation={[-Math.PI / 2, 0, 0]} scale={100}>
+                    <mesh
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.Eye_Material001_0001?.geometry}
+                      material={materials["Material.005"]}
+                      position={[0, 0, -0.019]}
+                      scale={0.987}
+                    />
+                  </group>
+                  <group rotation={[-Math.PI / 2, 0, 0]} scale={101.294}>
+                    <mesh
+                      castShadow
+                      receiveShadow
+                      geometry={nodes.EyeGlass_Material002_0001?.geometry}
+                      material={materials["Material.004"]}
+                      position={[0, 0, 0.009]}
+                      scale={1.007}
+                    />
+                  </group>
+                </>
+              ) : (
+                // DESKTOP STRUCTURE
+                <>
+                  <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Eye_Material001_0001?.geometry}
+                    material={materials["Material.005"]}
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    scale={100}
+                  />
+                  <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.EyeGlass_Material002_0001?.geometry}
+                    material={materials["Material.004"]}
+                    rotation={[-Math.PI / 2, 0, 0]}
+                    scale={101.294}
+                  />
+                </>
+              )}
             </group>
           </group>
         </group>
@@ -175,5 +249,3 @@ export default function HeadScene(props) {
     </group>
   );
 }
-
-useGLTF.preload("/models/head.glb");

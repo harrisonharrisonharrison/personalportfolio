@@ -15,6 +15,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [started, setStarted] = useState(false);
   const [isOverride, setIsOverride] = useState(false);
+  
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1440);
 
   const heroText =
     "Hello! I'm Harrison, and I'm currently studying computer science at UCI. I love sinking my time into developing full stack apps with other people.";
@@ -23,6 +25,12 @@ export default function App() {
   const mainContainerRef = useRef(null);
   const textContainerRef = useRef(null);
   const bgOverlayRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1440);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
@@ -132,12 +140,11 @@ export default function App() {
               <ambientLight intensity={0.6} />
               <directionalLight position={[10, 10, 5]} intensity={1.5} />
               <directionalLight position={[0, 1, 5]} color="#ffcccc" intensity={0.8} />
-              <Scene started={started} />
+              <Scene started={started} isMobile={isMobile} />
             </Canvas>
           </div>
         </div>
 
-        {/* Added relative z-10 so Experience also sits on top of the overlay */}
         <div className="relative z-10">
           <Experience isOverride={isOverride} setIsOverride={setIsOverride} />
         </div>

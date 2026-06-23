@@ -9,7 +9,7 @@ import { Stars } from "@react-three/drei";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Scene({ started }) {
+export default function Scene({ started, isMobile }) {
   const modelGroupRef = useRef();
   const groundRef = useRef();
 
@@ -76,7 +76,7 @@ export default function Scene({ started }) {
     <>
       <group ref={modelGroupRef} position={[5, -2, 0]}>
         <group position={[0, 3, 0]}>
-          <HeadScene scale={4} />
+          <HeadScene scale={4} isMobile={isMobile} />
         </group>
 
         <Center position={[-0.4, -2.5, 0]}>
