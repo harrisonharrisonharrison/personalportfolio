@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import ContactModal from "./Experience/ContactModal";
 
-export default function Navbar() {
+export default function Navbar({ isMobile, showContactModal, setShowContactModal }) {
   const [isOverride, setIsOverride] = useState(false);
 
   useEffect(() => {
@@ -30,40 +31,54 @@ export default function Navbar() {
     });
   };
 
-  const handleScrollToContact = () => {
-    const experienceSection = document.getElementById("experience");
-    if (experienceSection) {
-      experienceSection.scrollIntoView({ behavior: "smooth" });
+  const handleContactClick = () => {
+    if (isMobile) {
+      setShowContactModal(true);
+    } else {
+      const experienceSection = document.getElementById("experience");
+      if (experienceSection) {
+        experienceSection.scrollIntoView({ behavior: "smooth" });
+      }
+      window.dispatchEvent(new Event("highlightContact"));
     }
-    window.dispatchEvent(new Event("highlightContact"));
   };
 
   return (
-    <nav className="absolute top-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-20 text-xs sm:text-lg">
-      <a
-        className={`font-bold cursor-pointer hover:opacity-75 transition-opacity ${isOverride ? "text-white" : ""}`}
-        onClick={handleScrollToHome}
-      >
-        harrison tran
-      </a>
-      <div className="flex cursor-pointer gap-8 font-fraktion-mono">
-        <a className={linkClass} onClick={handleScrollToExperience}>
-          experience
-        </a>
-        
-        <a 
-          href="/harrison-tran-resume.pdf" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className={linkClass}
+    <>
+      <nav className="fixed top-0 left-0 right-0 w-full flex justify-between items-center px-5 sm:px-12 py-8 z-[9999] text-xs sm:text-lg pointer-events-auto">
+        <a
+          className={`font-bold cursor-pointer hover:opacity-75 transition-opacity ${isOverride ? "text-white" : ""}`}
+          onClick={handleScrollToHome}
         >
-          resume
+          harrison tran
         </a>
+        <div className="flex cursor-pointer gap-8 font-fraktion-mono">
+          <a className={linkClass} onClick={handleScrollToExperience}>
+            experience
+          </a>
+          
+          <a 
+            href="/harrison-tran-resume.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={linkClass}
+          >
+            resume
+          </a>
 
-        <a className={linkClass} onClick={handleScrollToContact}>
-          contact
-        </a>
-      </div>
-    </nav>
+          <a className={linkClass} onClick={handleContactClick}>
+            contact
+          </a>
+        </div>
+      </nav>
+
+      {isMobile && (
+        <ContactModal
+          isOpen={showContactModal}
+          onClose={() => setShowContactModal(false)}
+          isOverride={isOverride}
+        />
+      )}
+    </>
   );
 }

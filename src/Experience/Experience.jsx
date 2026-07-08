@@ -9,7 +9,7 @@ import About from "../About/About";
 import Header from "./Header";
 import FlickerReveal from "./Flicker";
 
-export default function Experience({ isOverride, setIsOverride }) {
+export default function Experience({ isOverride, setIsOverride, isMobile }) {
   const [orgsMinimized, setOrgsMinimized] = useState(false);
   const [projMinimized, setProjMinimized] = useState(true);
   
@@ -29,17 +29,21 @@ export default function Experience({ isOverride, setIsOverride }) {
         isOverride ? "bg-blue-900 text-white" : "bg-black text-red-500"
       } px-8 pt-20 pb-2 min-h-screen md:h-screen md:overflow-hidden flex flex-col gap-6 font-fraktion-mono text-xs sm:text-sm transition-colors duration-700`}
     >
-      <FlickerReveal delay={0}>
-        <Header isOverride={isOverride} />
-      </FlickerReveal>
+      {!isMobile && (
+        <FlickerReveal delay={0} className="hidden lg:block">
+          <Header isOverride={isOverride} />
+        </FlickerReveal>
+      )}
 
       <div className="flex-1 flex flex-col md:flex-row gap-6 min-h-0">
-        <FlickerReveal
-          delay={200}
-          className="w-full md:w-[23%] flex flex-col shrink-0 min-h-0"
-        >
-          <About isOverride={isOverride} />
-        </FlickerReveal>
+        {!isMobile && (
+          <FlickerReveal
+            delay={200}
+            className="w-full md:w-[23%] hidden lg:flex flex-col shrink-0 min-h-0"
+          >
+            <About isOverride={isOverride} />
+          </FlickerReveal>
+        )}
 
         <div
           className={`absolute flex justify-center w-full bottom-[20%] cursor-pointer transition-all duration-700 delay-200 z-10 ${
@@ -60,7 +64,7 @@ export default function Experience({ isOverride, setIsOverride }) {
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col gap-0 min-h-0">
+        <div className={`flex-1 flex flex-col gap-0 min-h-0 ${isMobile ? "w-full" : ""}`}>
           <FlickerReveal
             delay={400}
             className={`flex flex-col min-h-0 transition-all duration-500 ${
@@ -98,10 +102,11 @@ export default function Experience({ isOverride, setIsOverride }) {
           </FlickerReveal>
         </div>
       </div>
-
-      <FlickerReveal delay={800}>
-        <Contact isOverride={isOverride} />
-      </FlickerReveal>
+      {!isMobile && (  
+        <FlickerReveal delay={800}>
+          <Contact isOverride={isOverride} />
+        </FlickerReveal>
+      )}
     </section>
   );
 }
