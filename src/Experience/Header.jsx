@@ -15,6 +15,20 @@ export default function Header({ isOverride }) {
     hasFetched.current = true;
 
     async function trackVisit() {
+      let locationData = null;
+
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        locationData = await response.json();
+      } catch (err) {
+        console.error("Failed to fetch location data:", err);
+      }
+
+      const MY_IP = "1.1.1.1"; 
+      if (locationData && locationData.ip === MY_IP) {
+        return; 
+      }
+
       const { data, error } = await supabase.rpc("increment_visitor_count");
 
       if (error) {
@@ -23,31 +37,25 @@ export default function Header({ isOverride }) {
         setVisitorCount(data);
       }
 
-      if (!sessionStorage.getItem("hasVisited")) {
-        try {
-          const response = await fetch("https://ipapi.co/json/");
-          const locationData = await response.json();
+      if (!sessionStorage.getItem("hasVisited") && locationData) {
+        const { error: insertError } = await supabase
+          .from("site_visits")
+          .insert([
+            {
+              city: locationData.city,
+              region: locationData.region,
+              country: locationData.country_name,
+              referrer: document.referrer || "Direct Link",
+              ip_address: locationData.ip,
+            },
+          ]);
 
-          const { error: insertError } = await supabase
-            .from("site_visits")
-            .insert([
-              {
-                city: locationData.city,
-                region: locationData.region,
-                country: locationData.country_name,
-                referrer: document.referrer || "Direct Link",
-                ip_address: locationData.ip,
-              },
-            ]);
-
-          if (!insertError) {
-            sessionStorage.setItem("hasVisited", "true");
-          }
-        } catch (err) {
-          console.error("Failed to track location:", err);
+        if (!insertError) {
+          sessionStorage.setItem("hasVisited", "true");
         }
       }
     }
+    
     trackVisit();
   }, []);
 
