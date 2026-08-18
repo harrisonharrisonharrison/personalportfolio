@@ -24,8 +24,12 @@ export default function Header({ isOverride }) {
         console.error("Failed to fetch location data:", err);
       }
 
-      const MY_IP = "1.1.1.1"; 
-      if (locationData && locationData.ip === MY_IP) {
+      
+      const ignoredIpsString = import.meta.env.VITE_IGNORED_IPS || ""; 
+      
+      const ignoredIps = ignoredIpsString.split(",").map(ip => ip.trim());
+
+      if (locationData && ignoredIps.includes(locationData.ip)) {
         return; 
       }
 
